@@ -1,4 +1,4 @@
-package etech.security;
+package etech.admin.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,29 +11,29 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name="users")
-public class MyUser implements UserDetails {
+@Entity(name="USERS")
+public class User implements UserDetails {
 
     @Id
-    @NotEmpty
     private String username;
 
-    @NotEmpty
     private String email;
 
-    @NotEmpty
     private String name;
 
-    @NotEmpty
     @JsonIgnore
     private String password;
 
     private Date created;
 
-    public MyUser() {
+    private String mobile;
+
+    private String enabled;
+
+    public User() {
     }
 
-    public MyUser(@NotEmpty String username, @NotEmpty String password, List<GrantedAuthority> grantedAuthorities) {
+    public User(@NotEmpty String username, @NotEmpty String password, List<GrantedAuthority> grantedAuthorities) {
         this.username = username;
         this.password = password;
     }
@@ -103,5 +103,21 @@ public class MyUser implements UserDetails {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(String enabled) {
+        this.enabled = enabled;
     }
 }

@@ -1,5 +1,7 @@
 package etech.security;
 
+import etech.admin.domain.User;
+import etech.admin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
@@ -31,9 +33,9 @@ public class AuthFilter extends OncePerRequestFilter {
             String token = header.substring("Bearer ".length());
             String username = tokenUtil.getUsernameFromToken(token);
             if(username != null) {
-                MyUser myUser = userService.loadUserByUsername(username);
-                if (tokenUtil.isTokenValid(token, myUser)){
-                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(myUser, null, myUser.getAuthorities());
+                User user = userService.loadUserByUsername(username);
+                if (tokenUtil.isTokenValid(token, user)){
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                     usernamePasswordAuthenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
                 }

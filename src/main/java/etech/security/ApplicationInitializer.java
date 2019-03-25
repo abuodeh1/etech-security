@@ -1,12 +1,12 @@
 package etech.security;
 
-import etech.admin.UserRepository;
+import etech.admin.domain.User;
+import etech.admin.services.UserService;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -23,11 +23,11 @@ public class ApplicationInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        List<MyUser> myUserList = userService.findAll();
+        List<User> userList = userService.findAll();
 
-        if(myUserList.isEmpty()){
+        if(userList.isEmpty()){
 
-            MyUser user = new MyUser("admin", "123", AuthorityUtils.NO_AUTHORITIES);
+            User user = new User("admin", "123", AuthorityUtils.NO_AUTHORITIES);
             user.setCreated(new Date());
             user.setEmail("admin@etech-systems.com");
             user.setName("Mohammad");

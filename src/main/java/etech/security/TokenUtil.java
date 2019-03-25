@@ -1,5 +1,6 @@
 package etech.security;
 
+import etech.admin.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -31,7 +32,7 @@ public class TokenUtil {
 
         return Jwts.builder()
                     .setClaims(claims)
-                    .setExpiration(new Date(System.currentTimeMillis() + TOKEN_VALIDITY * 1000))
+                    .setExpiration(new Date((System.currentTimeMillis() + TOKEN_VALIDITY) * 1000))
                     .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                     .compact();
     }
@@ -55,8 +56,8 @@ public class TokenUtil {
         return claims;
     }
 
-    public boolean isTokenValid(String token, MyUser myUser) {
-        return ( getUsernameFromToken(token).equalsIgnoreCase(myUser.getUsername()) && !isNotExpired(token));
+    public boolean isTokenValid(String token, User user) {
+        return ( getUsernameFromToken(token).equalsIgnoreCase(user.getUsername()) && !isNotExpired(token));
     }
 
     private boolean isNotExpired(String token) {

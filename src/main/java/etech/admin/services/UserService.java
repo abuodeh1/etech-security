@@ -1,9 +1,9 @@
-package etech.security;
+package etech.admin.services;
 
-import etech.admin.UserRepository;
+import etech.admin.domain.User;
+import etech.admin.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,21 +25,21 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public MyUser loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<MyUser> myUser = userRepository.findById(username);
+        Optional<User> myUser = userRepository.findById(username);
         if (myUser.get() == null)
             throw new UsernameNotFoundException("Unknown User");
 
         return myUser.get();
     }
 
-    public void save(MyUser myUser){
-        myUser.setPassword(passwordEncoder().encode(myUser.getPassword()));
-        userRepository.save(myUser);
+    public void save(User user){
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
+        userRepository.save(user);
     }
 
-    public List<MyUser> findAll(){
+    public List<User> findAll(){
         return userRepository.findAll();
     }
 }
