@@ -1,4 +1,4 @@
-package etechs.security;
+package etech.security;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

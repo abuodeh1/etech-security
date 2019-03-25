@@ -1,11 +1,36 @@
 package etech.admin.rest;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import etech.admin.domain.Group;
+import etech.admin.services.GroupService;
+import etech.admin.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/admin/group")
 public class GroupController {
+
+    @Autowired
+    GroupService groupService;
+
+    @PostMapping
+    public Group createUser(@RequestBody Group group) {
+        return groupService.create(group);
+    }
+
+    @GetMapping(value = "/{groupID}")
+    public Group getGroup(@PathVariable String groupID) {
+        return groupService.get(groupID);
+    }
+
+    @DeleteMapping(value = "/{groupID}")
+    public void deleteUser(@PathVariable String groupID) {
+        groupService.delete(groupID);
+    }
+
+    @PutMapping
+    public Group updateUser(@RequestBody Group group) {
+        return groupService.update(group);
+    }
 
 }
