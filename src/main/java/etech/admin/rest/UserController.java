@@ -1,16 +1,17 @@
-package etech.admin;
+package etech.admin.rest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/v1/todos")
+@RequestMapping(value = "/api/admin/user")
 public class UserController {
 
-    @GetMapping("/say")
+    @GetMapping
     public String sayHello(){
 
-        return "Hello Mohammad";
+        return "Hello World..............................";
     }
+
 }
