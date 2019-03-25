@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.List;
 
-@Component	
+@Component
 public class ApplicationInitializer implements CommandLineRunner {
-	
-	Log logger = LogFactory.getLog(ApplicationInitializer.class);
+
+    Log logger = LogFactory.getLog(ApplicationInitializer.class);
 
     @Autowired
     private UserService userService;
@@ -25,7 +25,7 @@ public class ApplicationInitializer implements CommandLineRunner {
 
         List<User> userList = userService.findAll();
 
-        if(userList.isEmpty()){
+        if (userList.isEmpty()) {
 
             User user = new User("admin", "123", AuthorityUtils.NO_AUTHORITIES);
             user.setCreated(new Date());
@@ -33,7 +33,7 @@ public class ApplicationInitializer implements CommandLineRunner {
             user.setName("Mohammad");
 
             userService.save(user);
-            
+
             logger.info("NO USERS AVAILABLE / DEFAULT USER CREATED : ( " + user.getUsername() + " : " + user.getPassword() + " )");
         }
     }
