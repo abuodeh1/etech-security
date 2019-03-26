@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,5 +43,12 @@ public class GroupService {
 
         return groupRepository.save(group);
     }
+
+    public List<Group> getAllGroup() {
+        List  groupList = new ArrayList();
+        groupList=groupRepository.findAll();
+        return groupList;
+    }
+
 }
 

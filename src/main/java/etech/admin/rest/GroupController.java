@@ -1,10 +1,14 @@
 package etech.admin.rest;
 
 import etech.admin.domain.Group;
+import etech.admin.domain.User;
 import etech.admin.services.GroupService;
 import etech.admin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/admin/group")
@@ -31,6 +35,13 @@ public class GroupController {
     @PutMapping
     public Group updateUser(@RequestBody Group group) {
         return groupService.update(group);
+    }
+
+    @GetMapping()
+    public List<Group> getAllGroups() {
+        List groupList = new ArrayList();
+        groupList= groupService.getAllGroup();
+        return groupList;
     }
 
 }
