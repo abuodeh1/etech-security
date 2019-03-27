@@ -1,6 +1,7 @@
 package etech.admin.services;
 
 import etech.admin.domain.Lookup;
+import etech.admin.domain.Role;
 import etech.admin.repositories.LookupRepository;
 import etech.admin.rest.find.QuerySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LookupServices {
+public class LookupService {
 
     @Autowired
     LookupRepository lookupRepository;
@@ -53,12 +54,21 @@ public class LookupServices {
         return lookupRepository.save(lookup);
     }
 
-    public List<Lookup> getAlllookups() {
+    public List<Lookup> getAllLookups() {
         List  lookupList = new ArrayList();
         lookupList=lookupRepository.findAll();
         return lookupList;
     }
 
 
+    public Lookup disableLookup(String lookupID) {
 
+        Optional<Lookup> lookup= lookupRepository.findById(lookupID);
+        lookup.get().setEnabled(false);
+
+        Lookup Lookup2=  lookupRepository.save(lookup.get());
+
+        return Lookup2;
+
+    }
 }
