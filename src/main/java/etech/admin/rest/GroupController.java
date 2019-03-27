@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/api/admin/group")
-public class GroupController extends BaseSecurityController{
+public class GroupController {
 
     @Autowired
     GroupService groupService;

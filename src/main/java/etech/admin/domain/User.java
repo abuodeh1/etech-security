@@ -1,18 +1,25 @@
 package etech.admin.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import etech.logging.AuditInfo;
+import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+//@Audited
 @Entity(name="USERS")
-public class User implements UserDetails {
+public class User /*extends AuditInfo*/ implements UserDetails {
 
     @Id
     private String username;
@@ -24,11 +31,19 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
 
-    private Date created;
+    private LocalDateTime created;
 
     private String mobile;
 
-    private String enabled;
+    private boolean enabled;
+
+    private String office;
+
+    private String branch;
+
+    private String department;
+
+    private String directorate;
 
     public User() {
     }
@@ -36,6 +51,8 @@ public class User implements UserDetails {
     public User(@NotEmpty String username, @NotEmpty String password, List<GrantedAuthority> grantedAuthorities) {
         this.username = username;
         this.password = password;
+        this.enabled = true;
+        setCreated(LocalDateTime.now());
     }
 
     @Override
@@ -97,11 +114,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public Date getCreated() {
+    public LocalDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(LocalDateTime created) {
         this.created = created;
     }
 
@@ -113,11 +130,43 @@ public class User implements UserDetails {
         this.mobile = mobile;
     }
 
-    public String getEnabled() {
+    public boolean getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(String enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getOffice() {
+        return office;
+    }
+
+    public void setOffice(String office) {
+        this.office = office;
+    }
+
+    public String getBranch() {
+        return branch;
+    }
+
+    public void setBranch(String branch) {
+        this.branch = branch;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public String getDirectorate() {
+        return directorate;
+    }
+
+    public void setDirectorate(String directorate) {
+        this.directorate = directorate;
     }
 }

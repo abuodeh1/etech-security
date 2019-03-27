@@ -1,11 +1,15 @@
 package etech.admin.domain;
 
 
+import etech.logging.AuditInfo;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+//@Audited
 @Entity(name="ROLES")
-public class Role {
+public class Role /*extends AuditInfo*/ {
 
     @Id
     private String code;

@@ -1,10 +1,14 @@
 package etech.admin.domain;
 
+import etech.logging.AuditInfo;
+import org.hibernate.envers.Audited;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+//@Audited
 @Entity(name="GROUPS")
-public class Group {
+public class Group /*extends AuditInfo*/ {
 
     @Id
     private String code;
