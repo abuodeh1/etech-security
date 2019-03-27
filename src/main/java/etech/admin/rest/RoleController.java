@@ -1,10 +1,61 @@
 package etech.admin.rest;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import etech.admin.domain.Role;
+import etech.admin.rest.find.QuerySpecification;
+import etech.admin.rest.find.SearchCriteria;
+import etech.admin.services.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/admin/role")
-public class RoleController {
-    
+public class RoleController extends BaseSecurityController {
+
+
+    @Autowired
+    RoleService roleService;
+
+    @PostMapping
+    public Role createRole(@RequestBody Role role) {
+        return roleService.create(role);
+    }
+
+    @GetMapping(value = "/{roleID}")
+    public Role getrole(@PathVariable String roleID) {
+        return roleService.get(roleID);
+    }
+
+    @DeleteMapping (value = "/{roleID}")
+    public void deleteRole(@PathVariable String roleID) {
+        roleService.delete(roleID);
+    }
+
+    @PutMapping
+    public Role updateRole(@RequestBody Role role) {
+        return roleService.update(role);
+    }
+
+    @GetMapping()
+    public List<Role> getAllroles() {
+        List roleList = new ArrayList();
+        roleList= roleService.getAllRoles();
+        return roleList;
+    }
+
+    @GetMapping(value = "/search")
+    public List<Role> findRole(@RequestBody List<SearchCriteria> criteriaList) {
+        QuerySpecification<Role> querySpecification = new QuerySpecification<>(criteriaList);
+        List<Role> roles = roleService.findAll(querySpecification);
+        return roles;
+    }
+
+    @GetMapping(value = "/{roleID}/disable")
+    public Role disableRole(@PathVariable String roleID) {
+        return roleService.disableRole(roleID);
+    }
+
+
 }

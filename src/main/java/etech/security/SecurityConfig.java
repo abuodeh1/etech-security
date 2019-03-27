@@ -12,7 +12,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final String[] PUBLIC_ENDPOINT = {
-            "/api/auth"
+            "/api/auth", "/api/auth/verify"
     };
 
     @Bean

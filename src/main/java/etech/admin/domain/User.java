@@ -31,7 +31,7 @@ public class User implements UserDetails {
 
     private String enabled;
 
-    private int role_id;
+    //private int role_id;
 
 //    @ManyToOne
 //    @JoinColumn(name="role_id")
@@ -129,12 +129,4 @@ public class User implements UserDetails {
     }
 
 
-
-    public int getRole_id() {
-        return role_id;
-    }
-
-    public void setRole_id(int role_id) {
-        this.role_id = role_id;
-    }
 }

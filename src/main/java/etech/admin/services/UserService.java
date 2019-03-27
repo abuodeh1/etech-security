@@ -2,8 +2,10 @@ package etech.admin.services;
 
 import etech.admin.domain.User;
 import etech.admin.repositories.UserRepository;
+import etech.admin.rest.find.QuerySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,6 +46,9 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    public List<User> findAll(QuerySpecification<User> userSpecification){
+        return userRepository.findAll(userSpecification);
+    }
 
     public User create(User user) {
 
@@ -73,6 +78,16 @@ public class UserService implements UserDetailsService {
       List  userList = new ArrayList();
         userList=userRepository.findAll();
         return userList;
+    }
+
+    public  User disableUser(String userID){
+
+      Optional<User> user1= userRepository.findById(userID);
+        user1.get().setEnabled("false");
+
+      User user2=  userRepository.save(user1.get());
+
+        return user2;
     }
 
 }

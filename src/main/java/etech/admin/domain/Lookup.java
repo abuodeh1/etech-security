@@ -1,29 +1,15 @@
 package etech.admin.domain;
 
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import java.util.List;
-
-@Entity(name="ROLES")
-public class Role {
-
+@Entity(name="Lookup")
+public class Lookup {
 
     @Id
     private String code;
     private String name;
     private String description;
     private boolean enabled;
-
-//    @OneToMany(mappedBy = "roles")
-//    private List<User> userList;
-
-
-    public Role() {
-    }
 
     public String getCode() {
         return code;
@@ -41,14 +27,6 @@ public class Role {
         this.name = name;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -57,14 +35,11 @@ public class Role {
         this.description = description;
     }
 
-//    public List<User> getUserList() {
-//        return userList;
-//    }
-//
-//    public void setUserList(List<User> userList) {
-//        this.userList = userList;
-//    }
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-
-
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 }

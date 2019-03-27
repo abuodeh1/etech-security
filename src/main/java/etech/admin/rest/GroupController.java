@@ -2,9 +2,9 @@ package etech.admin.rest;
 
 import etech.admin.domain.Group;
 import etech.admin.domain.User;
+import etech.admin.rest.find.QuerySpecification;
+import etech.admin.rest.find.SearchCriteria;
 import etech.admin.services.GroupService;
-import etech.admin.services.UserService;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/admin/group")
-public class GroupController  {
+public class GroupController extends BaseSecurityController{
 
     @Autowired
     GroupService groupService;
@@ -24,7 +24,7 @@ public class GroupController  {
     }
 
     @GetMapping(value = "/{groupID}")
-    public Group getGroup(@PathVariable String groupID)  {
+    public Group getGroup(@PathVariable String groupID) {
         return groupService.get(groupID);
     }
 
@@ -39,10 +39,16 @@ public class GroupController  {
     }
 
     @GetMapping()
-    public List<Group> getAllGroups() throws Exception {
+    public List<Group> getAllGroups() {
         List groupList = new ArrayList();
         groupList= groupService.getAllGroup();
         return groupList;
     }
 
+    @GetMapping(value = "/search")
+    public List<Group> findGroup(@RequestBody List<SearchCriteria> criteriaList) {
+        QuerySpecification<Group> querySpecification = new QuerySpecification(criteriaList);
+        List<Group> groups = groupService.findAll(querySpecification);
+        return groups;
+    }
 }

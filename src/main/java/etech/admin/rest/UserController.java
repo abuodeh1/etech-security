@@ -1,6 +1,8 @@
 package etech.admin.rest;
 
 import etech.admin.domain.User;
+import etech.admin.rest.find.QuerySpecification;
+import etech.admin.rest.find.SearchCriteria;
 import etech.admin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,15 +44,16 @@ public class UserController {
         return userList;
     }
 
-    @GetMapping(value ="/{userName}" )
-    public List<User> SearchUserName(@PathVariable String userName) {
-        List userList = new ArrayList();
-        userList= userService.searchUserName(userName);
-        return userList;
+    @GetMapping(value = "/search")
+    public List<User> findUser(@RequestBody List<SearchCriteria> criteriaList) {
+        QuerySpecification<User> querySpecification = new QuerySpecification(criteriaList);
+        List<User> users = userService.findAll(querySpecification);
+        return users;
     }
 
-
-
-
+    @GetMapping(value = "/{userID}/disable")
+    public User disableUser(@PathVariable String userID) {
+        return userService.disableUser(userID);
+    }
 
 }

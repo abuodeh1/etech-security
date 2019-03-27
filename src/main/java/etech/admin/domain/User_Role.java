@@ -3,7 +3,7 @@ package etech.admin.domain;
 import javax.persistence.Entity;
 
 
-@Entity(name="user_role")
+//@Entity(name="user_role")
 public class User_Role {
 
     private int user_id;
