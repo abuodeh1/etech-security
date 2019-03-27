@@ -34,8 +34,9 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <version>LATEST</version>
         </dependency>
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -55,14 +56,14 @@
 
     <build>
 
-        <resources>
+        <!--<resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <excludes>
                     <exclude>application.properties</exclude>
                 </excludes>
             </resource>
-        </resources>
+        </resources>-->
 
         <plugins>
             <plugin>

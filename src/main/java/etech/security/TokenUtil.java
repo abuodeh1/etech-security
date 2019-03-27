@@ -32,7 +32,7 @@ public class TokenUtil {
 
         return Jwts.builder()
                     .setClaims(claims)
-                    .setExpiration(new Date((System.currentTimeMillis() + TOKEN_VALIDITY) * 1000))
+                    .setExpiration(new Date((System.currentTimeMillis() + TOKEN_VALIDITY) ))
                     .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                     .compact();
     }
@@ -56,11 +56,11 @@ public class TokenUtil {
         return claims;
     }
 
-    public boolean isTokenValid(String token, User user) {
-        return ( getUsernameFromToken(token).equalsIgnoreCase(user.getUsername()) && !isNotExpired(token));
+    public boolean isTokenValid(String token, String user) {
+        return ( getUsernameFromToken(token).equalsIgnoreCase(user) && !isExpired(token));
     }
 
-    private boolean isNotExpired(String token) {
+    private boolean isExpired(String token) {
         return getClaims(token).getExpiration().before(new Date());
     }
 }
