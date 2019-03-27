@@ -1,17 +1,17 @@
 package etech.admin.rest;
 
+import etech.admin.domain.Group;
 import etech.admin.domain.User;
-import etech.admin.rest.find.QuerySpecification;
-import etech.admin.rest.find.SearchCriteria;
+import etech.admin.services.GroupService;
 import etech.admin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping(value = "/api/admin/user")
-public class UserController extends BaseSecurityController{
+public class UserController {
 
     @Autowired
     UserService userService;
@@ -36,6 +36,12 @@ public class UserController extends BaseSecurityController{
         return userService.update(user);
     }
 
+    @GetMapping()
+    public List<User> getAllUsers() {
+        List userList = new ArrayList();
+        userList= userService.getAllUsers();
+        return userList;
+    }
     @GetMapping(value = "/search")
     public List<User> findUser(@RequestBody List<SearchCriteria> criteriaList) {
         QuerySpecification<User> querySpecification = new QuerySpecification(criteriaList);
