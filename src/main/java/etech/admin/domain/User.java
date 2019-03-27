@@ -1,12 +1,13 @@
 package etech.admin.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +30,12 @@ public class User implements UserDetails {
     private String mobile;
 
     private String enabled;
+
+    private int role_id;
+
+//    @ManyToOne
+//    @JoinColumn(name="role_id")
+//    private Role role;
 
     public User() {
     }
@@ -119,5 +126,15 @@ public class User implements UserDetails {
 
     public void setEnabled(String enabled) {
         this.enabled = enabled;
+    }
+
+
+
+    public int getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
     }
 }

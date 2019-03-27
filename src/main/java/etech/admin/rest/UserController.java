@@ -41,4 +41,16 @@ public class UserController {
         userList= userService.getAllUsers();
         return userList;
     }
+
+    @GetMapping(value ="/{userName}" )
+    public List<User> SearchUserName(@PathVariable String userName) {
+        List userList = new ArrayList();
+        userList= userService.searchUserName(userName);
+        return userList;
+    }
+
+
+
+
+
 }

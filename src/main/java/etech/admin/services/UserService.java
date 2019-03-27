@@ -1,8 +1,6 @@
 package etech.admin.services;
 
-import etech.admin.domain.Group;
 import etech.admin.domain.User;
-import etech.admin.repositories.GroupRepository;
 import etech.admin.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -76,6 +74,5 @@ public class UserService implements UserDetailsService {
         userList=userRepository.findAll();
         return userList;
     }
-
 
 }
