@@ -5,7 +5,6 @@ import etech.admin.repositories.UserRepository;
 import etech.admin.rest.find.QuerySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -37,7 +36,11 @@ public class UserService implements UserDetailsService {
         return myUser.get();
     }
 
-    public User save(User user) {
+    public User save(User user) throws Exception{
+        Optional<User> checkUser = userRepository.findById(user.getUsername());
+        if (checkUser.isPresent()) {
+            throw new Exception("User already exists");
+        }
         user.setPassword(passwordEncoder().encode(user.getPassword()));
         return userRepository.save(user);
     }
@@ -52,7 +55,7 @@ public class UserService implements UserDetailsService {
 
     public User create(User user) {
 
-        return save(user);
+        return userRepository.save(user);
     }
 
     public User get(String id) {

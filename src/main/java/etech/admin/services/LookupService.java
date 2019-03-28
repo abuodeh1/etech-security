@@ -1,7 +1,6 @@
 package etech.admin.services;
 
 import etech.admin.domain.Lookup;
-import etech.admin.domain.Role;
 import etech.admin.repositories.LookupRepository;
 import etech.admin.rest.find.QuerySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,5 +106,10 @@ public class LookupService {
 
         return  lookup;
     }
+    public void attachChildLookup(String  parentID ,String ID ) {
 
+       lookupRepository.attachChildLookup(parentID,ID);
+
+
+    }
 }

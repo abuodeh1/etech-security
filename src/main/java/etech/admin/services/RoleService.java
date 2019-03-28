@@ -1,7 +1,6 @@
 package etech.admin.services;
 
 import etech.admin.domain.Role;
-import etech.admin.domain.User;
 import etech.admin.repositories.RoleRepository;
 import etech.admin.rest.find.QuerySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
