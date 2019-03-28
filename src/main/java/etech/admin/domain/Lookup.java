@@ -1,16 +1,23 @@
 package etech.admin.domain;
 
+
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(name = "Lookup.GetAllParentsLookup", query = "select DISTINCT(c.parent) from Lookup c"),
+        @NamedQuery(name = "Lookup.GetAllChildsLookup", query = "select DISTINCT(c.name)  from Lookup c where c.parent=?1"),
+        @NamedQuery(name = "Lookup.GetChildLookup", query = "select c.name  from Lookup c where c.parent=?1 and c.code=?2 "),
+        @NamedQuery(name = "Lookup.attachChildLookup", query = "update Lookup  set parent=?1 Where code=?2")
+})
 @Audited
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(value = AuditingEntityListener.class)
 @Entity(name="Lookup")
 public class Lookup {
+
+
 
     @Id
     private String code;
