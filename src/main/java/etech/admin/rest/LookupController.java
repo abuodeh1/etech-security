@@ -1,7 +1,6 @@
 package etech.admin.rest;
 
 import etech.admin.domain.Lookup;
-import etech.admin.domain.Role;
 import etech.admin.rest.find.QuerySpecification;
 import etech.admin.rest.find.SearchCriteria;
 import etech.admin.services.LookupService;
@@ -77,7 +76,10 @@ public class LookupController {
         return lookupService.GetChildLookup(lookupID,parent);
     }
 
-
+    @GetMapping(value = "attach/{parentID}/{lookupID}")
+    public void attachChildLookup(@PathVariable String parentID,@PathVariable String lookupID) {
+       lookupService.attachChildLookup(parentID,lookupID);
+    }
 
 
 }
