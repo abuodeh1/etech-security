@@ -1,9 +1,22 @@
 package etech.admin.domain;
 
+
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+
+@NamedQueries({
+        @NamedQuery(name = "Lookup.GetAllParentsLookup", query = "select DISTINCT(c.parent) from Lookup c"),
+        @NamedQuery(name = "Lookup.GetAllChildsLookup", query = "select DISTINCT(c.name)  from Lookup c where c.parent=?1"),
+        @NamedQuery(name = "Lookup.GetChildLookup", query = "select c.name  from Lookup c where c.parent=?1 and c.code=?2 ")
+
+})
 @Entity(name="Lookup")
 public class Lookup {
+
+
 
     @Id
     private String code;
@@ -60,4 +73,7 @@ public class Lookup {
     public void setPrefered(boolean prefered) {
         this.prefered = prefered;
     }
+
+
+
 }

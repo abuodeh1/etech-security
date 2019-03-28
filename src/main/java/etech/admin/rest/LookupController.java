@@ -15,8 +15,6 @@ import java.util.List;
 @RequestMapping(value = "/api/admin/lookup")
 public class LookupController {
 
-
-
     @Autowired
     LookupService lookupService;
 
@@ -40,7 +38,7 @@ public class LookupController {
         return lookupService.update(lookup);
     }
 
-    @GetMapping()
+    @GetMapping
     public List<Lookup> getAlllookups() {
         List lookupList = new ArrayList();
         lookupList= lookupService.getAllLookups();
@@ -54,10 +52,32 @@ public class LookupController {
         return lookups;
     }
 
-    @GetMapping(value = "/{roleID}/disable")
-    public Lookup disableRole(@PathVariable String lookupID) {
+    @GetMapping(value = "/{roleID}/deactive")
+    public Lookup deactiveRole(@PathVariable String lookupID) {
         return lookupService.disableLookup(lookupID);
     }
+
+    @GetMapping(value = "/lookupID/parent")
+    public String getParentLookup(@PathVariable String lookupID) {
+        return lookupService.getParentLookup(lookupID);
+    }
+
+    @GetMapping(value = "/AllParent")
+    public List<Lookup> getAllParentLookup() {
+        return lookupService.getAllParentLookup();
+    }
+
+    @GetMapping(value = "/{lookupID}/AllChilds")
+    public List<Lookup> getAllChildsLookup(@PathVariable String lookupID) {
+        return lookupService.GetAllChildsLookup(lookupID);
+    }
+
+    @GetMapping(value = "/{lookupID}/{parent}")
+    public List<Lookup> getChildLookup(@PathVariable String lookupID,@PathVariable String parent) {
+        return lookupService.GetChildLookup(lookupID,parent);
+    }
+
+
 
 
 }

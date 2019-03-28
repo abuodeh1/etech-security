@@ -71,4 +71,41 @@ public class LookupService {
         return Lookup2;
 
     }
+    public String getParentLookup(String lookupID) {
+
+        Optional<Lookup> lookup= lookupRepository.findById(lookupID);
+        lookup.get().getParent();
+
+        return  lookup.get().getParent();
+
+    }
+    public List<Lookup> getAllParentLookup() {
+
+        List<Lookup> lookup= lookupRepository.GetAllParentsLookup();
+
+        return  lookup;
+    }
+
+    public String getChildLookup(String lookupID) {
+
+        Optional<Lookup> lookup= lookupRepository.findById(lookupID);
+        lookup.get().getParent();
+
+        return  lookup.get().getParent();
+    ///not ready ..................................
+    }
+
+    public List<Lookup> GetAllChildsLookup(String  id) {
+
+        List<Lookup> lookup= lookupRepository.GetAllChildsLookup(id);
+
+        return  lookup;
+    }
+    public List<Lookup> GetChildLookup(String  id ,String  parentID) {
+
+        List<Lookup> lookup= lookupRepository.GetChildLookup(id,parentID);
+
+        return  lookup;
+    }
+
 }
