@@ -15,10 +15,10 @@ public abstract class BaseSecurityController {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    @Bean
+/*    @Bean
     public AuditorAware<String> createAuditorProvider() {
         Optional username = Optional.ofNullable(getCurrentUser().getUsername()==null? "admin": getCurrentUser().getUsername());
         return () -> username;
-    }
+    }*/
 
 }

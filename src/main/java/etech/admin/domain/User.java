@@ -1,7 +1,9 @@
 package etech.admin.domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import etech.logging.AuditInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,16 +12,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-//@Audited
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 @Entity(name="USERS")
-public class User /*extends AuditInfo*/ implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     private String username;
@@ -29,6 +31,7 @@ public class User /*extends AuditInfo*/ implements UserDetails {
     private String name;
 
     @JsonIgnore
+    @JsonProperty(value = "password")
     private String password;
 
     private LocalDateTime created;

@@ -1,6 +1,5 @@
 package etech.admin.domain;
 
-
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -10,17 +9,14 @@ import javax.persistence.Id;
 
 @Audited
 @EntityListeners(AuditingEntityListener.class)
-@Entity(name="ROLES")
-public class Role {
+@Entity(name="Lookup")
+public class Lookup {
 
     @Id
     private String code;
     private String name;
     private String description;
     private boolean enabled;
-
-    public Role() {
-    }
 
     public String getCode() {
         return code;
@@ -38,19 +34,19 @@ public class Role {
         this.name = name;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

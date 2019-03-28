@@ -1,12 +1,14 @@
 package etech.admin.domain;
 
-import etech.logging.AuditInfo;
 import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 
-//@Audited
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 @Entity(name="GROUPS")
 public class Group /*extends AuditInfo*/ {
 

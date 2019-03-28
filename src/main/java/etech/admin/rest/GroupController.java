@@ -2,6 +2,8 @@ package etech.admin.rest;
 
 import etech.admin.domain.Group;
 import etech.admin.domain.User;
+import etech.admin.rest.find.QuerySpecification;
+import etech.admin.rest.find.SearchCriteria;
 import etech.admin.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -44,4 +46,10 @@ public class GroupController {
         return groupList;
     }
 
+    @GetMapping(value = "/search")
+    public List<Group> findGroup(@RequestBody List<SearchCriteria> criteriaList) {
+        QuerySpecification<Group> querySpecification = new QuerySpecification(criteriaList);
+        List<Group> groups = groupService.findAll(querySpecification);
+        return groups;
+    }
 }

@@ -23,7 +23,7 @@ public class UserService implements UserDetailsService {
     UserRepository userRepository;
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -37,22 +37,22 @@ public class UserService implements UserDetailsService {
         return myUser.get();
     }
 
-    public void save(User user){
+    public User save(User user) {
         user.setPassword(passwordEncoder().encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    public List<User> findAll(QuerySpecification<User> userSpecification){
+    public List<User> findAll(QuerySpecification<User> userSpecification) {
         return userRepository.findAll(userSpecification);
     }
 
     public User create(User user) {
 
-        return userRepository.save(user);
+        return save(user);
     }
 
     public User get(String id) {
@@ -64,7 +64,7 @@ public class UserService implements UserDetailsService {
 
     public void delete(String id) {
 
-        if ( get(id) != null )
+        if (get(id) != null)
 
             userRepository.deleteById(id);
     }
@@ -75,10 +75,17 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> getAllUsers() {
-      List  userList = new ArrayList();
-        userList=userRepository.findAll();
+        List userList = new ArrayList();
+        userList = userRepository.findAll();
         return userList;
     }
 
+    public User disableUser(String userID) {
+
+        Optional<User> user = userRepository.findById(userID);
+        user.get().setEnabled(false);
+
+        return userRepository.save(user.get());
+    }
 
 }

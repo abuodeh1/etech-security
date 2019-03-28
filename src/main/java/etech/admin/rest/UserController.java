@@ -44,11 +44,17 @@ public class UserController {
         userList= userService.getAllUsers();
         return userList;
     }
+
     @GetMapping(value = "/search")
     public List<User> findUser(@RequestBody List<SearchCriteria> criteriaList) {
         QuerySpecification<User> querySpecification = new QuerySpecification(criteriaList);
         List<User> users = userService.findAll(querySpecification);
         return users;
+    }
+
+    @GetMapping(value = "/{userID}/disable")
+    public User disableUser(@PathVariable String userID) {
+        return userService.disableUser(userID);
     }
 
 }
