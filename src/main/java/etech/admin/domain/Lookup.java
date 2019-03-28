@@ -17,6 +17,8 @@ public class Lookup {
     private String name;
     private String description;
     private boolean enabled;
+    private String parent;
+    private boolean prefered;
 
     public String getCode() {
         return code;
@@ -49,4 +51,23 @@ public class Lookup {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
+
+    public String getParent() {
+        return parent;
+    }
+
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
+
+    public boolean isPrefered() {
+        return prefered;
+    }
+
+    public void setPrefered(boolean prefered) {
+        this.prefered = prefered;
+    }
+
+
+
 }
