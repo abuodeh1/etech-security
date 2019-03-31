@@ -3,9 +3,7 @@ package etech.admin.domain;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Audited
 @EntityListeners(AuditingEntityListener.class)
@@ -13,6 +11,8 @@ import javax.persistence.Id;
 public class Privilege {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int privilegeId;
     private String code;
     private String name;
     private String description;
@@ -48,5 +48,13 @@ public class Privilege {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public int getPrivilegeId() {
+        return privilegeId;
+    }
+
+    public void setPrivilegeId(int privilegeId) {
+        this.privilegeId = privilegeId;
     }
 }

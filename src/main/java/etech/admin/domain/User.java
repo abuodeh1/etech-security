@@ -1,6 +1,8 @@
 package etech.admin.domain;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Audited
@@ -18,13 +21,11 @@ import java.util.List;
 @Entity(name="USERS")
 public class User implements UserDetails {
 
-//    @Id
-//    private String user_id;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int userId;
+
     private String username;
-
-
-    private int userID;
 
     private String email;
 
@@ -34,7 +35,7 @@ public class User implements UserDetails {
     @JsonProperty(value = "password")
     private String password;
 
-    private LocalDateTime created;
+    private long created;
 
     private String mobile;
 
@@ -48,11 +49,9 @@ public class User implements UserDetails {
 
     private String directorate;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinTable(name = "user_role",
-//            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "user_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "role_id") })
-//    private User_Role user_role;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private List<UserRole> userRoles;
 
     public User() {
     }
@@ -61,7 +60,7 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.enabled = true;
-        setCreated(LocalDateTime.now());
+        setCreated(new Date().getTime());
     }
 
     @Override
@@ -123,11 +122,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public LocalDateTime getCreated() {
+    public long getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(long created) {
         this.created = created;
     }
 
@@ -179,19 +178,19 @@ public class User implements UserDetails {
         this.directorate = directorate;
     }
 
-    public int getUserID() {
-        return userID;
+    public List<UserRole> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
-//    public User_Role getUser_role() {
-//        return user_role;
-//    }
-//
-//    public void setUser_role(User_Role user_role) {
-//        this.user_role = user_role;
-//    }
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }

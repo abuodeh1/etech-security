@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.Optional.empty;
-
 @Service
 public class UserService implements UserDetailsService {
 
@@ -90,19 +88,23 @@ public class UserService implements UserDetailsService {
         }
     }
 
-
     public List<User> getAllUsers() {
         List userList = new ArrayList();
         userList = userRepository.findAll();
         return userList;
     }
 
-    public User disableUser(String userID) {
+    public User disableUser(String username) {
 
-        Optional<User> user = userRepository.findById(userID);
-        user.get().setEnabled(false);
+        User updatedUser = null;
 
-        return userRepository.save(user.get());
+        Optional<User> user = userRepository.findUserByUsername(username);
+        if (user.isPresent()) {
+            user.get().setEnabled(false);
+            updatedUser = userRepository.save(user.get());
+        }
+
+        return updatedUser;
     }
 
 }

@@ -16,6 +16,10 @@ public class LookupService {
     @Autowired
     LookupRepository lookupRepository;
 
+    public void save(Lookup lookup){
+
+        lookupRepository.save(lookup);
+    }
 
     public List<Lookup> findAll() {
         return lookupRepository.findAll();
@@ -36,8 +40,6 @@ public class LookupService {
         } else {
             return lookupRepository.save(lookup);
         }
-
-    }
 
     public Lookup get(String id) {
 
@@ -93,37 +95,35 @@ public class LookupService {
 
     public List<Lookup> getAllParentLookup() {
 
-        List<Lookup> lookup = lookupRepository.GetAllParentsLookup();
+        List<Lookup> lookup= lookupRepository.GetAllParentsLookup();
 
-        return lookup;
+        return  lookup;
     }
 
     public String getChildLookup(String lookupID) {
 
-        Optional<Lookup> lookup = lookupRepository.findById(lookupID);
+        Optional<Lookup> lookup= lookupRepository.findById(lookupID);
         lookup.get().getParent();
 
-        return lookup.get().getParent();
-        ///not ready ..................................
+        return  lookup.get().getParent();
+    ///not ready ..................................
     }
 
-    public List<Lookup> GetAllChildsLookup(String id) {
+    public List<Lookup> GetAllChildsLookup(String  id) {
 
-        List<Lookup> lookup = lookupRepository.GetAllChildsLookup(id);
+        List<Lookup> lookup= lookupRepository.GetAllChildsLookup(id);
 
-        return lookup;
+        return  lookup;
     }
+    public List<Lookup> GetChildLookup(String  id ,String  parentID) {
 
-    public List<Lookup> GetChildLookup(String id, String parentID) {
+        List<Lookup> lookup= lookupRepository.GetChildLookup(id,parentID);
 
-        List<Lookup> lookup = lookupRepository.GetChildLookup(id, parentID);
-
-        return lookup;
+        return  lookup;
     }
+    public void attachChildLookup(String  parentID ,String ID ) {
 
-    public void attachChildLookup(String parentID, String ID) {
-
-        lookupRepository.attachChildLookup(parentID, ID);
+       lookupRepository.attachChildLookup(parentID,ID);
 
 
     }
