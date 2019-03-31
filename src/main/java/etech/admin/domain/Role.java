@@ -4,7 +4,9 @@ package etech.admin.domain;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.Id;
 
 @Audited
 @EntityListeners(AuditingEntityListener.class)
@@ -52,13 +54,5 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
     }
 }

@@ -21,7 +21,12 @@ public class RoleController {
 
     @PostMapping
     public Role createRole(@RequestBody Role role) {
-        return roleService.create(role);
+        try {
+            return roleService.create(role);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  null;
     }
 
     @GetMapping(value = "/{roleID}")
@@ -35,7 +40,7 @@ public class RoleController {
     }
 
     @PutMapping
-    public Role updateRole(@RequestBody Role role) {
+    public Role updateRole(@RequestBody Role role) throws Exception {
         return roleService.update(role);
     }
 

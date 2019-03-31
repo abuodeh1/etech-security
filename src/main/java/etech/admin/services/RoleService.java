@@ -16,10 +16,7 @@ public class RoleService {
     @Autowired
     private RoleRepository roleRepository;
 
-    public void save(Role role){
 
-       roleRepository.save(role);
-    }
 
     public List<Role> findAll(){
         return roleRepository.findAll();
@@ -29,9 +26,18 @@ public class RoleService {
         return roleRepository.findAll(roleSpecification);
     }
 
-    public Role create(Role role) {
+    public Role create(Role role) throws Exception {
 
-        return roleRepository.save(role);
+        Optional<Role> checkRole = roleRepository.findById(role.getCode());
+
+        if (checkRole.isPresent() && (checkRole.get().getCode().equals(role.getCode()))) {
+
+            throw new Exception("Role already exists");
+
+        } else {
+            return roleRepository.save(role);
+        }
+
     }
 
     public Role get(String id) {
@@ -48,9 +54,15 @@ public class RoleService {
             roleRepository.deleteById(id);
     }
 
-    public Role update(Role role) {
+    public Role update(Role role) throws Exception {
 
-        return roleRepository.save(role);
+        Optional<Role> checkgroup = roleRepository.findById(role.getCode());
+
+        if (checkgroup.isPresent()) {
+            return roleRepository.save(role);
+        } else {
+            throw new Exception("Role not exist");
+        }
     }
 
     public List<Role> getAllRoles() {

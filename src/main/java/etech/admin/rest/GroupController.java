@@ -1,7 +1,6 @@
 package etech.admin.rest;
 
 import etech.admin.domain.Group;
-import etech.admin.domain.User;
 import etech.admin.rest.find.QuerySpecification;
 import etech.admin.rest.find.SearchCriteria;
 import etech.admin.services.GroupService;
@@ -21,7 +20,12 @@ public class GroupController {
 
     @PostMapping
     public Group createUser(@RequestBody Group group) {
-        return groupService.create(group);
+        try {
+            return groupService.create(group);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping(value = "/{groupID}")
@@ -36,7 +40,12 @@ public class GroupController {
 
     @PutMapping
     public Group updateUser(@RequestBody Group group) {
-        return groupService.update(group);
+        try {
+            return groupService.update(group);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping()
