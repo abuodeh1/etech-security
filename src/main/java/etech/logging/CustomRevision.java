@@ -1,7 +1,5 @@
 package etech.logging;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionEntity;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,7 +17,7 @@ public class CustomRevision extends DefaultRevisionEntity implements Serializabl
 
 	@Column(name = "modified_date")
 	@LastModifiedDate
-	private LocalDateTime modifiedDate;
+	private long modifiedDate;
 
 	@Column(name = "host")
 	private String host;
@@ -32,11 +30,11 @@ public class CustomRevision extends DefaultRevisionEntity implements Serializabl
 		this.userName = userName;
 	}
 
-	public LocalDateTime getModifiedDate() {
+	public long getModifiedDate() {
 		return modifiedDate;
 	}
 
-	public void setModifiedDate(LocalDateTime modifiedDate) {
+	public void setModifiedDate(long modifiedDate) {
 		this.modifiedDate = modifiedDate;
 	}
 

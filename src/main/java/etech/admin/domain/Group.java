@@ -3,9 +3,7 @@ package etech.admin.domain;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Audited
 @EntityListeners(AuditingEntityListener.class)
@@ -13,6 +11,8 @@ import javax.persistence.Id;
 public class Group /*extends AuditInfo*/ {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int groupId;
     private String code;
     private String name;
     private String description;
@@ -51,5 +51,13 @@ public class Group /*extends AuditInfo*/ {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 }

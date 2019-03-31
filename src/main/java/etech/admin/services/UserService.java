@@ -29,7 +29,7 @@ public class UserService implements UserDetailsService {
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Optional<User> myUser = userRepository.findById(username);
+        Optional<User> myUser = userRepository.findUserByUsername(username);
         if (myUser.get() == null)
             throw new UsernameNotFoundException("Unknown User");
 
@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User save(User user) throws Exception{
-        Optional<User> checkUser = userRepository.findById(user.getUsername());
+        Optional<User> checkUser = userRepository.findUserByUsername(user.getUsername());
         if (checkUser.isPresent()) {
             throw new Exception("User already exists");
         }
@@ -58,18 +58,18 @@ public class UserService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    public User get(String id) {
+    public User get(String username) {
 
-        Optional<User> user = userRepository.findById(id);
+        Optional<User> user = userRepository.findUserByUsername(username);
 
         return user.isPresent() ? user.get() : null;
     }
 
-    public void delete(String id) {
+    public void delete(String username) {
 
-        if (get(id) != null)
+        if (get(username) != null)
 
-            userRepository.deleteById(id);
+            userRepository.deleteById(username);
     }
 
     public User update(User user) {
@@ -83,12 +83,17 @@ public class UserService implements UserDetailsService {
         return userList;
     }
 
-    public User disableUser(String userID) {
+    public User disableUser(String username) {
 
-        Optional<User> user = userRepository.findById(userID);
-        user.get().setEnabled(false);
+        User updatedUser = null;
 
-        return userRepository.save(user.get());
+        Optional<User> user = userRepository.findUserByUsername(username);
+        if (user.isPresent()) {
+            user.get().setEnabled(false);
+            updatedUser = userRepository.save(user.get());
+        }
+
+        return updatedUser;
     }
 
 }

@@ -13,11 +13,11 @@ import java.util.List;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/api/admin/role")
-public class RoleController extends BaseSecurityController {
+public class RoleController {
 
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @PostMapping
     public Role createRole(@RequestBody Role role) {
@@ -25,7 +25,7 @@ public class RoleController extends BaseSecurityController {
     }
 
     @GetMapping(value = "/{roleID}")
-    public Role getrole(@PathVariable String roleID) {
+    public Role getRole(@PathVariable String roleID) {
         return roleService.get(roleID);
     }
 

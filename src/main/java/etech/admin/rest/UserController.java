@@ -5,6 +5,8 @@ import etech.admin.rest.find.QuerySpecification;
 import etech.admin.rest.find.SearchCriteria;
 import etech.admin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -24,8 +26,9 @@ public class UserController {
     }
 
     @GetMapping(value = "/{userID}")
-    public User getUser(@PathVariable String userID) {
-        return userService.get(userID);
+    public ResponseEntity getUser(@PathVariable String userID) {
+        User user = userService.get(userID);
+        return (user == null? new ResponseEntity(HttpStatus.NO_CONTENT): ResponseEntity.accepted().body(user) );
     }
 
     @DeleteMapping(value = "/{userID}")

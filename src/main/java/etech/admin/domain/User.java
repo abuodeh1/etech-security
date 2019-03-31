@@ -9,9 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -24,6 +22,9 @@ import java.util.List;
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int userId;
+
     private String username;
 
     private String email;
@@ -34,7 +35,7 @@ public class User implements UserDetails {
     @JsonProperty(value = "password")
     private String password;
 
-    private LocalDateTime created;
+    private long created;
 
     private String mobile;
 
@@ -48,6 +49,10 @@ public class User implements UserDetails {
 
     private String directorate;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private List<UserRole> userRoles;
+
     public User() {
     }
 
@@ -55,7 +60,7 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.enabled = true;
-        setCreated(LocalDateTime.now());
+        setCreated(new Date().getTime());
     }
 
     @Override
@@ -117,11 +122,11 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public LocalDateTime getCreated() {
+    public long getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(long created) {
         this.created = created;
     }
 
@@ -171,5 +176,21 @@ public class User implements UserDetails {
 
     public void setDirectorate(String directorate) {
         this.directorate = directorate;
+    }
+
+    public List<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

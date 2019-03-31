@@ -108,7 +108,7 @@ public class LookupService {
     }
     public void attachChildLookup(String  parentID ,String ID ) {
 
-       lookupRepository.attachChildLookup(parentID,ID);
+       //lookupRepository.attachChildLookup(parentID,ID);
 
 
     }

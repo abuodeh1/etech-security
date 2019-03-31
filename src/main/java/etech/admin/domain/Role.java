@@ -4,9 +4,7 @@ package etech.admin.domain;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Audited
 @EntityListeners(AuditingEntityListener.class)
@@ -14,6 +12,8 @@ import javax.persistence.Id;
 public class Role {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int roleId;
     private String code;
     private String name;
     private String description;
@@ -52,5 +52,13 @@ public class Role {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 }
