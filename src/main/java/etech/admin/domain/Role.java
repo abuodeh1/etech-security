@@ -5,9 +5,10 @@ import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Audited
-@EntityListeners(AuditingEntityListener.class)
+//@Audited
+//@EntityListeners(AuditingEntityListener.class)
 @Entity(name="ROLES")
 public class Role {
 
@@ -18,6 +19,10 @@ public class Role {
     private String name;
     private String description;
     private boolean enabled;
+
+    @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "roleId")
+    private List<UserRole> userRoles;
 
     public Role() {
     }
@@ -60,5 +65,13 @@ public class Role {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public List<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 }

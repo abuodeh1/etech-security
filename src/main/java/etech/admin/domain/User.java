@@ -46,7 +46,8 @@ public class User implements UserDetails {
 
     private String directorate;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
     private List<UserRole> userRoles;
 
     public User() {

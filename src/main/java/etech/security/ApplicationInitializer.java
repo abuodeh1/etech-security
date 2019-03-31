@@ -14,7 +14,6 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @EnableJpaAuditing
@@ -51,12 +50,6 @@ public class ApplicationInitializer implements CommandLineRunner {
             User user = new User("admin", "123", AuthorityUtils.NO_AUTHORITIES);
             user.setEmail("admin@etech-systems.com");
             user.setName("Mohammad");
-
-            List<UserRole> userRoles = new ArrayList<>();
-            userRoles.add(new UserRole(role, 1554025466465L));
-            userRoles.add(new UserRole(role1, 1554025466465L));
-
-            user.setUserRoles(userRoles);
 
             userService.save(user);
 

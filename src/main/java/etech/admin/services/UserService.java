@@ -79,7 +79,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User update(User user) throws Exception {
-        Optional<User> checkUser = userRepository.findById(user.getUsername());
+        Optional<User> checkUser = userRepository.findUserByUsername(user.getUsername());
 
         if (checkUser.isPresent()) {
             return userRepository.save(user);
