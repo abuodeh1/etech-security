@@ -18,7 +18,7 @@ public class LookupController {
     LookupService lookupService;
 
     @PostMapping
-    public Lookup createLookup(@RequestBody Lookup lookup) {
+    public Lookup createLookup(@RequestBody Lookup lookup) throws Exception {
         return lookupService.create(lookup);
     }
 
@@ -33,7 +33,7 @@ public class LookupController {
     }
 
     @PutMapping
-    public Lookup updateLookup(@RequestBody Lookup lookup) {
+    public Lookup updateLookup(@RequestBody Lookup lookup) throws Exception {
         return lookupService.update(lookup);
     }
 

@@ -3,18 +3,13 @@ package etech.logging;
 import etech.admin.domain.User;
 import org.hibernate.envers.RevisionListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.audit.AuditEvent;
-import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.Random;
 
 public class CustomyRevisionListener implements RevisionListener {
 

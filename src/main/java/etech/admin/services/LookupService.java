@@ -16,22 +16,27 @@ public class LookupService {
     @Autowired
     LookupRepository lookupRepository;
 
-    public void save(Lookup lookup){
 
-        lookupRepository.save(lookup);
-    }
-
-    public List<Lookup> findAll(){
+    public List<Lookup> findAll() {
         return lookupRepository.findAll();
     }
 
-    public List<Lookup> findAll(QuerySpecification<Lookup> lookupSpecification){
+    public List<Lookup> findAll(QuerySpecification<Lookup> lookupSpecification) {
         return lookupRepository.findAll(lookupSpecification);
     }
 
-    public Lookup create(Lookup lookup) {
+    public Lookup create(Lookup lookup) throws Exception {
 
-        return lookupRepository.save(lookup);
+        Optional<Lookup> checkLookup = lookupRepository.findById(lookup.getCode());
+
+        if (checkLookup.isPresent() && (checkLookup.get().getCode().equals(lookup.getCode()))) {
+
+            throw new Exception("Lookup already exists");
+
+        } else {
+            return lookupRepository.save(lookup);
+        }
+
     }
 
     public Lookup get(String id) {
@@ -43,72 +48,82 @@ public class LookupService {
 
     public void delete(String id) {
 
-        if ( get(id) != null )
+        if (get(id) != null)
 
             lookupRepository.deleteById(id);
     }
 
-    public Lookup update(Lookup lookup) {
+    public Lookup update(Lookup lookup) throws Exception {
+        Optional<Lookup> checkLookup = lookupRepository.findById(lookup.getCode());
 
-        return lookupRepository.save(lookup);
+        if (checkLookup.isPresent()) {
+            return lookupRepository.save(lookup);
+        } else {
+            throw new Exception("Lookup not exist");
+        }
+
     }
 
     public List<Lookup> getAllLookups() {
-        List  lookupList = new ArrayList();
-        lookupList=lookupRepository.findAll();
+        List lookupList = new ArrayList();
+        lookupList = lookupRepository.findAll();
         return lookupList;
     }
 
 
     public Lookup disableLookup(String lookupID) {
 
-        Optional<Lookup> lookup= lookupRepository.findById(lookupID);
+        Optional<Lookup> lookup = lookupRepository.findById(lookupID);
         lookup.get().setEnabled(false);
 
-        Lookup Lookup2=  lookupRepository.save(lookup.get());
+        Lookup Lookup2 = lookupRepository.save(lookup.get());
 
         return Lookup2;
 
     }
+
     public String getParentLookup(String lookupID) {
 
-        Optional<Lookup> lookup= lookupRepository.findById(lookupID);
+        Optional<Lookup> lookup = lookupRepository.findById(lookupID);
         lookup.get().getParent();
 
-        return  lookup.get().getParent();
+        return lookup.get().getParent();
 
     }
+
     public List<Lookup> getAllParentLookup() {
 
-        List<Lookup> lookup= lookupRepository.GetAllParentsLookup();
+        List<Lookup> lookup = lookupRepository.GetAllParentsLookup();
 
-        return  lookup;
+        return lookup;
     }
 
     public String getChildLookup(String lookupID) {
 
-        Optional<Lookup> lookup= lookupRepository.findById(lookupID);
+        Optional<Lookup> lookup = lookupRepository.findById(lookupID);
         lookup.get().getParent();
 
-        return  lookup.get().getParent();
-    ///not ready ..................................
+        return lookup.get().getParent();
+        ///not ready ..................................
     }
 
-    public List<Lookup> GetAllChildsLookup(String  id) {
+    public List<Lookup> GetAllChildsLookup(String id) {
 
-        List<Lookup> lookup= lookupRepository.GetAllChildsLookup(id);
+        List<Lookup> lookup = lookupRepository.GetAllChildsLookup(id);
 
-        return  lookup;
+        return lookup;
     }
-    public List<Lookup> GetChildLookup(String  id ,String  parentID) {
 
-        List<Lookup> lookup= lookupRepository.GetChildLookup(id,parentID);
+    public List<Lookup> GetChildLookup(String id, String parentID) {
 
-        return  lookup;
+        List<Lookup> lookup = lookupRepository.GetChildLookup(id, parentID);
+
+        return lookup;
     }
-    public void attachChildLookup(String  parentID ,String ID ) {
 
-       lookupRepository.attachChildLookup(parentID,ID);
+    public void attachChildLookup(String parentID, String ID) {
+
+        lookupRepository.attachChildLookup(parentID, ID);
 
 
     }

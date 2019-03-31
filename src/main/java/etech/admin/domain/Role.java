@@ -7,6 +7,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Audited
 @EntityListeners(AuditingEntityListener.class)
@@ -18,6 +19,9 @@ public class Role {
     private String name;
     private String description;
     private boolean enabled;
+
+//    @OneToOne(mappedBy = "user_role")
+//    private User user;
 
     public Role() {
     }
@@ -53,4 +57,12 @@ public class Role {
     public void setDescription(String description) {
         this.description = description;
     }
+
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 }

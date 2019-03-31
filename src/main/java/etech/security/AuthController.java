@@ -1,6 +1,5 @@
 package etech.security;
 
-import etech.admin.domain.User;
 import etech.admin.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

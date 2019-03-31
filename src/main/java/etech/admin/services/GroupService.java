@@ -16,9 +16,18 @@ public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
 
-    public Group create(Group group) {
+    public Group create(Group group) throws Exception {
 
-        return groupRepository.save(group);
+        Optional<Group> checkUser = groupRepository.findById(group.getCode());
+
+        if (checkUser.isPresent() && (checkUser.get().getCode().equals(group.getCode()))) {
+
+            throw new Exception("Group already exists");
+
+        } else {
+            return groupRepository.save(group);
+        }
+
     }
 
     public Group get(String id) {
@@ -29,23 +38,29 @@ public class GroupService {
     }
 
     public void delete(String id) {
-        if ( get(id) != null )
+        if (get(id) != null)
 
             groupRepository.deleteById(id);
     }
 
-    public Group update(Group group) {
+    public Group update(Group group) throws Exception {
 
-        return groupRepository.save(group);
+        Optional<Group> checkgroup = groupRepository.findById(group.getCode());
+
+        if (checkgroup.isPresent()) {
+            return groupRepository.save(group);
+        } else {
+            throw new Exception("Group not exist");
+        }
     }
 
     public List<Group> getAllGroup() {
-        List  groupList = new ArrayList();
-        groupList=groupRepository.findAll();
+        List groupList = new ArrayList();
+        groupList = groupRepository.findAll();
         return groupList;
     }
 
-    public List<Group> findAll(QuerySpecification<Group> groupSpecification){
+    public List<Group> findAll(QuerySpecification<Group> groupSpecification) {
         return groupRepository.findAll(groupSpecification);
     }
 

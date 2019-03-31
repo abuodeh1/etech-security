@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static java.util.Optional.empty;
+
 @Service
 public class UserService implements UserDetailsService {
 
@@ -36,14 +38,20 @@ public class UserService implements UserDetailsService {
         return myUser.get();
     }
 
-    public User save(User user) throws Exception{
+    public User save(User user) throws Exception {
         Optional<User> checkUser = userRepository.findById(user.getUsername());
-        if (checkUser.isPresent()) {
+
+        if (checkUser.isPresent() && (checkUser.get().getUsername().equals(user.getUsername()))) {
+
             throw new Exception("User already exists");
+
+        } else {
+
+            user.setPassword(passwordEncoder().encode(user.getPassword()));
+            return userRepository.save(user);
         }
-        user.setPassword(passwordEncoder().encode(user.getPassword()));
-        return userRepository.save(user);
     }
+
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -72,10 +80,16 @@ public class UserService implements UserDetailsService {
             userRepository.deleteById(id);
     }
 
-    public User update(User user) {
+    public User update(User user) throws Exception {
+        Optional<User> checkUser = userRepository.findById(user.getUsername());
 
-        return userRepository.save(user);
+        if (checkUser.isPresent()) {
+            return userRepository.save(user);
+        } else {
+            throw new Exception("User not exist");
+        }
     }
+
 
     public List<User> getAllUsers() {
         List userList = new ArrayList();

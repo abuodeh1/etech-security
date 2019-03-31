@@ -1,14 +1,22 @@
 package etech.admin.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import java.time.LocalDateTime;
 
-
-//@Entity(name="user_role")
+//@Entity(name="User_Role")
 public class User_Role {
 
+    @Id
     private int user_id;
 
     private int role_id;
+
+    private LocalDateTime created;
+
+
 
     public int getUser_id() {
         return user_id;
@@ -25,4 +33,14 @@ public class User_Role {
     public void setRole_id(int role_id) {
         this.role_id = role_id;
     }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
+
 }

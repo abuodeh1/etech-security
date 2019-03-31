@@ -1,21 +1,16 @@
 package etech.admin.domain;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Audited
@@ -23,8 +18,13 @@ import java.util.List;
 @Entity(name="USERS")
 public class User implements UserDetails {
 
+//    @Id
+//    private String user_id;
     @Id
     private String username;
+
+
+    private int userID;
 
     private String email;
 
@@ -47,6 +47,12 @@ public class User implements UserDetails {
     private String department;
 
     private String directorate;
+
+//    @OneToOne(cascade = CascadeType.ALL)
+//    @JoinTable(name = "user_role",
+//            joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "user_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "role_id") })
+//    private User_Role user_role;
 
     public User() {
     }
@@ -172,4 +178,20 @@ public class User implements UserDetails {
     public void setDirectorate(String directorate) {
         this.directorate = directorate;
     }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
+    }
+
+//    public User_Role getUser_role() {
+//        return user_role;
+//    }
+//
+//    public void setUser_role(User_Role user_role) {
+//        this.user_role = user_role;
+//    }
 }

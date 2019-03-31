@@ -20,7 +20,12 @@ public class UserController {
 
     @PostMapping
     public User createUser(@RequestBody User user) {
-        return userService.create(user);
+        try {
+            return userService.save(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping(value = "/{userID}")
@@ -35,7 +40,13 @@ public class UserController {
 
     @PutMapping
     public User updateUser(@RequestBody User user) {
-        return userService.update(user);
+
+        try {
+            return userService.update(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @GetMapping()
