@@ -28,7 +28,7 @@ public class RoleService {
 
     public Role create(Role role) throws Exception {
 
-        Optional<Role> checkRole = roleRepository.findById(role.getCode());
+        Optional<Role> checkRole = roleRepository.findRoleByCode(role.getCode());
 
         if (checkRole.isPresent() && (checkRole.get().getCode().equals(role.getCode()))) {
 
@@ -76,7 +76,7 @@ public class RoleService {
         Optional<Role> role1= roleRepository.findById(roleID);
         role1.get().setEnabled(false);
 
-        Role role2=  roleRepository.save(role1.get());
+        Role role2 =  roleRepository.save(role1.get());
 
         return role2;
 

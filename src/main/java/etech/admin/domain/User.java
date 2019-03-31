@@ -1,8 +1,6 @@
 package etech.admin.domain;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -11,13 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Audited
-@EntityListeners(AuditingEntityListener.class)
+//@Audited
+//@EntityListeners(AuditingEntityListener.class)
 @Entity(name="USERS")
 public class User implements UserDetails {
 
@@ -49,8 +46,7 @@ public class User implements UserDetails {
 
     private String directorate;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
+    @OneToMany(cascade = CascadeType.PERSIST)
     private List<UserRole> userRoles;
 
     public User() {

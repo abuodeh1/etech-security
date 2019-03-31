@@ -11,7 +11,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.Optional;
 
 @SpringBootApplication
-@EnableEurekaClient
 public class EtechSecurityApplication {
 
     public static void main(String[] args) {

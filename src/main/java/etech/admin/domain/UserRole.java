@@ -6,8 +6,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
-@Audited
-@EntityListeners(AuditingEntityListener.class)
+//@Audited
+//@EntityListeners(AuditingEntityListener.class)
 @Entity(name="USERROLES")
 public class UserRole {
 
@@ -15,33 +15,22 @@ public class UserRole {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
 
-    private int roleId;
+    @ManyToOne
+    @JoinColumn(name = "roleId")
+    private Role role;
 
     private long lastModified;
 
-    public int getUserId() {
-        return userId;
+
+    public UserRole() {
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    public long getLastModified() {
-        return lastModified;
-    }
-
-    public void setLastModified(long lastModified) {
+    public UserRole(Role role, long lastModified) {
+        this.role = role;
         this.lastModified = lastModified;
     }
 
@@ -51,5 +40,29 @@ public class UserRole {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public long getLastModified() {
+        return lastModified;
+    }
+
+    public void setLastModified(long lastModified) {
+        this.lastModified = lastModified;
     }
 }

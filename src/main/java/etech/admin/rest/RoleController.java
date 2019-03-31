@@ -54,8 +54,8 @@ public class RoleController {
     @GetMapping(value = "/search")
     public List<Role> findRole(@RequestBody List<SearchCriteria> criteriaList) {
         QuerySpecification<Role> querySpecification = new QuerySpecification<>(criteriaList);
-        List<Role> roles = roleService.findAll(querySpecification);
-        return roles;
+        List<Role> authorities = roleService.findAll(querySpecification);
+        return authorities;
     }
 
     @GetMapping(value = "/{roleID}/disable")

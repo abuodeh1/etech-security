@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
     }
 
     public User save(User user) throws Exception {
-        Optional<User> checkUser = userRepository.findById(user.getUsername());
+        Optional<User> checkUser = userRepository.findUserByUsername(user.getUsername());
 
         if (checkUser.isPresent() && (checkUser.get().getUsername().equals(user.getUsername()))) {
 

@@ -40,6 +40,7 @@ public class LookupService {
         } else {
             return lookupRepository.save(lookup);
         }
+    }
 
     public Lookup get(String id) {
 
