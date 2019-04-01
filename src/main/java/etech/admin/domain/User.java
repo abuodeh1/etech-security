@@ -16,7 +16,7 @@ import java.util.List;
 @Audited
 @EntityListeners(AuditingEntityListener.class)
 @Entity(name="USERS")
-public class User implements UserDetails {
+public class User extends DefaultEntity implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -193,11 +193,22 @@ public class User implements UserDetails {
         this.userId = userId;
     }
 
+    @JsonIgnore
     public String getCode() {
-        return code;
+        return username;
     }
 
     public void setCode(String code) {
-        this.code = code;
+        this.username = code;
+    }
+
+    @Override
+    public int getId() {
+        return userId;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.userId = id;
     }
 }

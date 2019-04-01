@@ -7,7 +7,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Entity(name = "Revision")
 @RevisionEntity(CustomyRevisionListener.class)

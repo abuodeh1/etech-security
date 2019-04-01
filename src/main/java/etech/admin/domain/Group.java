@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Audited
 @EntityListeners(AuditingEntityListener.class)
 @Entity(name="GROUPS")
-public class Group /*extends AuditInfo*/ {
+public class Group extends DefaultEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,5 +60,15 @@ public class Group /*extends AuditInfo*/ {
 
     public void setGroupId(int groupId) {
         this.groupId = groupId;
+    }
+
+    @Override
+    public int getId() {
+        return groupId;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.groupId = id;
     }
 }

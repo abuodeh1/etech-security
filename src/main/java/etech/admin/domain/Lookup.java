@@ -15,11 +15,10 @@ import javax.persistence.*;
 @Audited
 @EntityListeners(value = AuditingEntityListener.class)
 @Entity(name="Lookup")
-public class Lookup {
-
-
+public class Lookup extends DefaultEntity{
 
     @Id
+    private int lookupId;
     private String code;
     private String name;
     private String description;
@@ -33,6 +32,16 @@ public class Lookup {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public int getId() {
+        return lookupId;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.lookupId = id;
     }
 
     public String getName() {
@@ -75,6 +84,11 @@ public class Lookup {
         this.prefered = prefered;
     }
 
+    public int getLookupId() {
+        return lookupId;
+    }
 
-
+    public void setLookupId(int lookupId) {
+        this.lookupId = lookupId;
+    }
 }

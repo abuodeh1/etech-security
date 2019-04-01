@@ -17,40 +17,6 @@ public class LookupController {
     @Autowired
     LookupService lookupService;
 
-    @PostMapping
-    public Lookup createLookup(@RequestBody Lookup lookup) throws Exception {
-        return lookupService.create(lookup);
-    }
-
-    @GetMapping(value = "/{lookupID}")
-    public Lookup getlookup(@PathVariable String lookupID) {
-        return lookupService.get(lookupID);
-    }
-
-    @DeleteMapping (value = "/{lookupID}")
-    public void deleteLookup(@PathVariable String lookupID) {
-        lookupService.delete(lookupID);
-    }
-
-    @PutMapping
-    public Lookup updateLookup(@RequestBody Lookup lookup) throws Exception {
-        return lookupService.update(lookup);
-    }
-
-    @GetMapping
-    public List<Lookup> getAlllookups() {
-        List lookupList = new ArrayList();
-        lookupList= lookupService.getAllLookups();
-        return lookupList;
-    }
-
-    @GetMapping(value = "/search")
-    public List<Lookup> findLookup(@RequestBody List<SearchCriteria> criteriaList) {
-        QuerySpecification<Lookup> querySpecification = new QuerySpecification<>(criteriaList);
-        List<Lookup> lookups = lookupService.findAll(querySpecification);
-        return lookups;
-    }
-
     @GetMapping(value = "/{roleID}/deactive")
     public Lookup deactiveRole(@PathVariable String lookupID) {
         return lookupService.disableLookup(lookupID);

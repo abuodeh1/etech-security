@@ -1,6 +1,5 @@
 package etech.security;
 
-import etech.admin.domain.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

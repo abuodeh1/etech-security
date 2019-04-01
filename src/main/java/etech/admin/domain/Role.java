@@ -1,16 +1,15 @@
 package etech.admin.domain;
 
 
-import org.hibernate.envers.Audited;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 //@Audited
 //@EntityListeners(AuditingEntityListener.class)
 @Entity(name="ROLES")
-public class Role {
+public class Role extends DefaultEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -74,4 +73,14 @@ public class Role {
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
     }*/
+
+    @Override
+    public int getId() {
+        return this.roleId;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.roleId = id;
+    }
 }

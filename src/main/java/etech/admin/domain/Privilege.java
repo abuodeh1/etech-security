@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Audited
 @EntityListeners(AuditingEntityListener.class)
 @Entity(name="PRIVILEGES")
-public class Privilege {
+public class Privilege extends DefaultEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +24,16 @@ public class Privilege {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    @Override
+    public int getId() {
+        return privilegeId;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.privilegeId = id;
     }
 
     public String getName() {

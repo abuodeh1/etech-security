@@ -11,6 +11,5 @@ import java.util.Optional;
 public interface GroupRepository extends JpaRepository<Group, String>, JpaSpecificationExecutor<Group> {
 
     Optional<Group> findGroupByCode(String code);
-    Optional<Group> deleteByCode(String code);
 
 }

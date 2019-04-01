@@ -6,12 +6,11 @@ import etech.admin.rest.find.QuerySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RoleService {
+public class RoleService implements EntityService<Role> {
 
     @Autowired
     private RoleRepository roleRepository;

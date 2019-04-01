@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GroupService {
+public class GroupService implements EntityService<Group>{
 
     @Autowired
     private GroupRepository groupRepository;
@@ -31,10 +31,23 @@ public class GroupService {
         return group;
     }
 
-    public void delete(String id) {
-        if (get(id) != null)
+    public boolean delete(String code) {
+        Optional<Group> user = get(code);
 
-            groupRepository.deleteByCode(id);
+        if (user.isPresent()) {
+
+            groupRepository.delete(user.get());
+
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public List<Group> getAll() {
+
+        return groupRepository.findAll();
     }
 
     public Group update(Group group) throws Exception {

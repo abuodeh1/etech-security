@@ -11,14 +11,35 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class LookupService {
+public class LookupService implements EntityService<Lookup> {
 
     @Autowired
     LookupRepository lookupRepository;
 
-    public void save(Lookup lookup){
 
-        lookupRepository.save(lookup);
+    @Override
+    public List<Lookup> getAll() {
+        return null;
+    }
+
+    @Override
+    public List<Lookup> find(QuerySpecification<Lookup> querySpecification) {
+        return null;
+    }
+
+    @Override
+    public Optional<Lookup> get(String code) {
+        return Optional.empty();
+    }
+
+    public Lookup save(Lookup lookup){
+
+        return lookupRepository.save(lookup);
+    }
+
+    @Override
+    public boolean delete(String code) {
+        return false;
     }
 
     public List<Lookup> findAll() {
@@ -43,19 +64,19 @@ public class LookupService {
 
     }
 
-    public Lookup get(String id) {
-
-        Optional<Lookup> lookup = lookupRepository.findById(id);
-
-        return lookup.isPresent() ? lookup.get() : null;
-    }
-
-    public void delete(String id) {
-
-        if (get(id) != null)
-
-            lookupRepository.deleteById(id);
-    }
+//    public Lookup get(String id) {
+//
+//        Optional<Lookup> lookup = lookupRepository.findById(id);
+//
+//        return lookup.isPresent() ? lookup.get() : null;
+//    }
+//
+//    public void delete(String id) {
+//
+//        if (get(id) != null)
+//
+//            lookupRepository.deleteById(id);
+//    }
 
     public Lookup update(Lookup lookup) throws Exception {
         Optional<Lookup> checkLookup = lookupRepository.findById(lookup.getCode());
