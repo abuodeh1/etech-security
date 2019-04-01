@@ -16,31 +16,25 @@ public class GroupService {
     @Autowired
     private GroupRepository groupRepository;
 
-    public Group create(Group group) throws Exception {
+    public Group save(Group group)  {
 
-        Optional<Group> checkUser = groupRepository.findById(group.getCode());
 
-        if (checkUser.isPresent() && (checkUser.get().getCode().equals(group.getCode()))) {
-
-            throw new Exception("Group already exists");
-
-        } else {
             return groupRepository.save(group);
-        }
+
 
     }
 
-    public Group get(String id) {
+    public Optional<Group>  get(String groupCode) {
 
-        Optional<Group> group = groupRepository.findById(id);
+        Optional<Group> group = groupRepository.findGroupByCode(groupCode);
 
-        return group.isPresent() ? group.get() : null;
+        return group;
     }
 
     public void delete(String id) {
         if (get(id) != null)
 
-            groupRepository.deleteById(id);
+            groupRepository.deleteByCode(id);
     }
 
     public Group update(Group group) throws Exception {
@@ -62,6 +56,12 @@ public class GroupService {
 
     public List<Group> findAll(QuerySpecification<Group> groupSpecification) {
         return groupRepository.findAll(groupSpecification);
+    }
+
+    public List<Group> find(QuerySpecification<Group> userSpecification) {
+
+        return groupRepository.findAll(userSpecification);
+
     }
 
 }

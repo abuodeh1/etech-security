@@ -12,4 +12,6 @@ import java.util.Optional;
 public interface RoleRepository extends JpaRepository<Role, String> , JpaSpecificationExecutor<Role> {
 
     Optional<Role> findRoleByCode(String code);
+
+    Optional<Role> deleteByCode(String code);
 }

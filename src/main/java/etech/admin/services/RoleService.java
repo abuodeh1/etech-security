@@ -26,32 +26,26 @@ public class RoleService {
         return roleRepository.findAll(roleSpecification);
     }
 
-    public Role create(Role role) throws Exception {
+    public Role save(Role role){
 
-        Optional<Role> checkRole = roleRepository.findRoleByCode(role.getCode());
 
-        if (checkRole.isPresent() && (checkRole.get().getCode().equals(role.getCode()))) {
-
-            throw new Exception("Role already exists");
-
-        } else {
             return roleRepository.save(role);
-        }
+
 
     }
 
-    public Role get(String id) {
+    public Optional<Role> get(String id) {
 
-        Optional<Role> role = roleRepository.findById(id);
+        return   roleRepository.findRoleByCode(id);
 
-        return role.isPresent() ? role.get() : null;
+
     }
 
     public void delete(String id) {
 
         if ( get(id) != null )
 
-            roleRepository.deleteById(id);
+            roleRepository.deleteByCode(id);
     }
 
     public Role update(Role role) throws Exception {
@@ -79,6 +73,11 @@ public class RoleService {
         Role role2 =  roleRepository.save(role1.get());
 
         return role2;
+
+    }
+    public List<Role> find(QuerySpecification<Role> userSpecification) {
+
+        return roleRepository.findAll(userSpecification);
 
     }
 }

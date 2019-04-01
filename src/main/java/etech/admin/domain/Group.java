@@ -13,6 +13,7 @@ public class Group /*extends AuditInfo*/ {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int groupId;
+
     private String code;
     private String name;
     private String description;

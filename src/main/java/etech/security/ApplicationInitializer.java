@@ -42,8 +42,8 @@ public class ApplicationInitializer implements CommandLineRunner {
             role1.setEnabled(true);
             role1.setName("Role 2");
 
-            roleService.create(role);
-            roleService.create(role1);
+            roleService.save(role);
+            roleService.save(role1);
 
             User user = new User("admin", "123", AuthorityUtils.NO_AUTHORITIES);
             user.setEmail("admin@etech-systems.com");
