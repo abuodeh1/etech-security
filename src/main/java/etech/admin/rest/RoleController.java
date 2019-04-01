@@ -127,6 +127,8 @@ public class RoleController {
 
             Role role = sysRole.get();
 
+            role.setRoleId(sysRole.get().getRoleId());
+
             role.setEnabled(false);
 
             Role updatedRole = roleService.save(role);
@@ -151,6 +153,8 @@ public class RoleController {
         if(sysRole.isPresent()){
 
             Role role = sysRole.get();
+
+            role.setRoleId(sysRole.get().getRoleId());
 
             role.setEnabled(true);
 

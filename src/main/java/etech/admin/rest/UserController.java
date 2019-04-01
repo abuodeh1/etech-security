@@ -125,6 +125,8 @@ public class UserController {
 
             User user = sysUser.get();
 
+            user.setUserId(sysUser.get().getUserId());
+
             user.setEnabled(false);
 
             User updatedUser = userService.save(user);
@@ -149,6 +151,8 @@ public class UserController {
         if(sysUser.isPresent()){
 
             User user = sysUser.get();
+
+            user.setUserId(sysUser.get().getUserId());
 
             user.setEnabled(true);
 
