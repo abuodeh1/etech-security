@@ -2,7 +2,6 @@ package etech.security;
 
 import etech.admin.domain.Role;
 import etech.admin.domain.User;
-import etech.admin.domain.UserRole;
 import etech.admin.services.RoleService;
 import etech.admin.services.UserService;
 import org.apache.juli.logging.Log;
@@ -13,7 +12,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @EnableJpaAuditing
@@ -30,7 +28,7 @@ public class ApplicationInitializer implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        List<User> userList = userService.findAll();
+        List<User> userList = userService.getAll();
 
         if (userList.isEmpty()) {
 

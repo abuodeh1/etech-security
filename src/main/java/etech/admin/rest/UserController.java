@@ -4,13 +4,14 @@ import etech.admin.domain.User;
 import etech.admin.rest.find.QuerySpecification;
 import etech.admin.rest.find.SearchCriteria;
 import etech.admin.services.UserService;
+import etech.exception.ConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -20,55 +21,145 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping
-    public User add(@RequestBody User user) {
-        try {
-            return userService.save(user);
-        } catch (Exception e) {
-            e.printStackTrace();
+    @PostMapping(value = {"", "/"})
+    public ResponseEntity<User> add(@RequestBody User user) {
+
+        if(userService.get(user.getUsername()).isPresent()){
+
+            throw new ConflictException(String.format("The user %s already defined.", user.getUsername()));
         }
-        return null;
+
+        User addedUser = userService.save(user);
+
+        return new ResponseEntity(addedUser, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/{userId}")
-    public ResponseEntity get(@PathVariable String userId) {
-        User user = userService.get(userId);
-        return (user == null? new ResponseEntity(HttpStatus.NO_CONTENT): ResponseEntity.accepted().body(user) );
+    @GetMapping(value = "/{username}")
+    public ResponseEntity get(@PathVariable String username) {
+        ResponseEntity<User> responseEntity = null;
+
+        Optional<User> user = userService.get(username);
+
+        if(!user.isPresent()){
+
+            responseEntity = new ResponseEntity(HttpStatus.NO_CONTENT);
+
+        }else{
+
+            responseEntity = new ResponseEntity(user.get(), HttpStatus.FOUND);
+        }
+
+        return responseEntity;
     }
 
-    @DeleteMapping(value = "/{userId}")
-    public void delete(@PathVariable String userId) {
-         userService.delete(userId);
+    @DeleteMapping(value = "/{username}")
+    public ResponseEntity delete(@PathVariable String username) {
+
+        ResponseEntity<User> responseEntity = null;
+
+        Optional<User> user = userService.get(username);
+
+        if(user.isPresent()){
+
+            userService.delete(username);
+
+            responseEntity = new ResponseEntity(true, HttpStatus.OK);
+
+        }else{
+
+            responseEntity = new ResponseEntity(false, HttpStatus.NOT_FOUND);
+        }
+
+        return responseEntity;
+
     }
 
     @PutMapping
-    public User update(@RequestBody User user) {
+    public ResponseEntity<User> update(@RequestBody User user) {
 
-        try {
-            return userService.update(user);
-        } catch (Exception e) {
-            e.printStackTrace();
+        ResponseEntity<User> responseEntity = null;
+
+        Optional<User> sysUser = userService.get(user.getUsername());
+
+        if(sysUser.isPresent()){
+
+            user.setUserId(sysUser.get().getUserId());
+
+            User updatedUser = userService.save(user);
+
+            responseEntity = new ResponseEntity(updatedUser, HttpStatus.OK);
+
+        }else{
+
+            responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
         }
-        return null;
+
+        return responseEntity;
+
     }
 
     @GetMapping()
-    public List<User> getAll() {
-        List userList = new ArrayList();
-        userList= userService.getAllUsers();
-        return userList;
+    public ResponseEntity<List<User>> getAll() {
+
+        return new ResponseEntity(userService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/find")
-    public List<User> find(@RequestBody List<SearchCriteria> criteriaList) {
+    public ResponseEntity<List<User>> find(@RequestBody List<SearchCriteria> criteriaList) {
+
         QuerySpecification<User> querySpecification = new QuerySpecification(criteriaList);
-        List<User> users = userService.findAll(querySpecification);
-        return users;
+
+        return new ResponseEntity(userService.find(querySpecification), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/{userId}/deactivate")
-    public User deactivate(@PathVariable String userId) {
-        return userService.disableUser(userId);
+    @GetMapping(value = "/{username}/deactivate")
+    public ResponseEntity<User> deactivate(@PathVariable String username) {
+
+        ResponseEntity<User> responseEntity = null;
+
+        Optional<User> sysUser = userService.get(username);
+
+        if(sysUser.isPresent()){
+
+            User user = sysUser.get();
+
+            user.setEnabled(false);
+
+            User updatedUser = userService.save(user);
+
+            responseEntity = new ResponseEntity(updatedUser, HttpStatus.OK);
+
+        }else{
+
+            responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
+        }
+
+        return responseEntity;
+    }
+
+    @GetMapping(value = "/{username}/activate")
+    public ResponseEntity<User> activate(@PathVariable String username) {
+
+        ResponseEntity<User> responseEntity = null;
+
+        Optional<User> sysUser = userService.get(username);
+
+        if(sysUser.isPresent()){
+
+            User user = sysUser.get();
+
+            user.setEnabled(true);
+
+            User updatedUser = userService.save(user);
+
+            responseEntity = new ResponseEntity(updatedUser, HttpStatus.OK);
+
+        }else{
+
+            responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
+        }
+
+        return responseEntity;
     }
 
 }

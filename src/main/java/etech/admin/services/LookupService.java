@@ -40,6 +40,7 @@ public class LookupService {
         } else {
             return lookupRepository.save(lookup);
         }
+
     }
 
     public Lookup get(String id) {
@@ -70,6 +71,15 @@ public class LookupService {
     public List<Lookup> getAllLookups() {
         List lookupList = new ArrayList();
         lookupList = lookupRepository.findAll();
+        return lookupList;
+    }
+
+    public List<Lookup> getAllLookups2() {
+        List lookupList = new ArrayList();
+        lookupList = lookupRepository.findAll();
+
+
+
         return lookupList;
     }
 
@@ -107,7 +117,7 @@ public class LookupService {
         lookup.get().getParent();
 
         return  lookup.get().getParent();
-    ///not ready ..................................
+        ///not ready ..................................
     }
 
     public List<Lookup> GetAllChildsLookup(String  id) {
@@ -124,8 +134,11 @@ public class LookupService {
     }
     public void attachChildLookup(String  parentID ,String ID ) {
 
-       lookupRepository.attachChildLookup(parentID,ID);
+        lookupRepository.attachChildLookup(parentID,ID);
 
 
     }
+
+
+
 }

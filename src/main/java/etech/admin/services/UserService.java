@@ -27,84 +27,48 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username)  {
 
-        Optional<User> myUser = userRepository.findById(username);
-        if (myUser.get() == null)
-            throw new UsernameNotFoundException("Unknown User");
+        Optional<User> user = userRepository.findById(username);
 
-        return myUser.get();
+        return user.isPresent()? user.get() : null;
     }
 
-    public User save(User user) throws Exception {
-        Optional<User> checkUser = userRepository.findUserByUsername(user.getUsername());
+    public User save(User user) {
 
-        if (checkUser.isPresent() && (checkUser.get().getUsername().equals(user.getUsername()))) {
-
-            throw new Exception("User already exists");
-
-        } else {
-
-            user.setPassword(passwordEncoder().encode(user.getPassword()));
-            return userRepository.save(user);
-        }
-    }
-
-
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    public List<User> findAll(QuerySpecification<User> userSpecification) {
-        return userRepository.findAll(userSpecification);
-    }
-
-    public User create(User user) {
+        user.setPassword(passwordEncoder().encode(user.getPassword()));
 
         return userRepository.save(user);
     }
 
-    public User get(String id) {
+    public List<User> find(QuerySpecification<User> userSpecification) {
 
-        Optional<User> user = userRepository.findById(id);
+        return userRepository.findAll(userSpecification);
 
-        return user.isPresent() ? user.get() : null;
     }
 
-    public void delete(String id) {
+    public Optional<User> get(String username) {
 
-        if (get(id) != null)
-
-            userRepository.deleteById(id);
+        return userRepository.findUserByUsername(username);
     }
 
-    public User update(User user) throws Exception {
-        Optional<User> checkUser = userRepository.findUserByUsername(user.getUsername());
+    public boolean delete(String username) {
 
-        if (checkUser.isPresent()) {
-            return userRepository.save(user);
-        } else {
-            throw new Exception("User not exist");
-        }
-    }
+        Optional<User> user = get(username);
 
-    public List<User> getAllUsers() {
-        List userList = new ArrayList();
-        userList = userRepository.findAll();
-        return userList;
-    }
-
-    public User disableUser(String username) {
-
-        User updatedUser = null;
-
-        Optional<User> user = userRepository.findUserByUsername(username);
         if (user.isPresent()) {
-            user.get().setEnabled(false);
-            updatedUser = userRepository.save(user.get());
+
+            userRepository.delete(user.get());
+
+            return true;
         }
 
-        return updatedUser;
+        return false;
+    }
+
+    public List<User> getAll() {
+
+        return userRepository.findAll();
     }
 
 }
