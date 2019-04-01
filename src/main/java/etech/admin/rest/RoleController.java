@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,9 +25,10 @@ public class RoleController {
 
     @PostMapping(value = {"", "/"})
     public ResponseEntity<Role> add(@RequestBody Role role) {
+
         if(roleService.get(role.getCode()).isPresent()){
 
-            throw new ConflictException(String.format("The Role %s already defined.", role.getName()));
+            throw new ConflictException(String.format("The Role %s already defined.", role.getCode()));
         }
 
         Role addedRole = roleService.save(role);
@@ -36,11 +36,12 @@ public class RoleController {
         return new ResponseEntity(addedRole, HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/{roleID}")
-    public ResponseEntity get(@PathVariable String roleID) {
+    @GetMapping(value = "/{code}")
+    public ResponseEntity get(@PathVariable String code) {
+
         ResponseEntity<Role> responseEntity = null;
 
-        Optional<Role> role = roleService.get(roleID);
+        Optional<Role> role = roleService.get(code);
 
         if(!role.isPresent()){
 
@@ -55,16 +56,16 @@ public class RoleController {
     }
 
     @Transactional
-    @DeleteMapping(value = "/{roleCode}")
-    public ResponseEntity delete(@PathVariable String roleCode) {
+    @DeleteMapping(value = "/{code}")
+    public ResponseEntity delete(@PathVariable String code) {
 
         ResponseEntity<Role> responseEntity = null;
 
-        Optional<Role> role = roleService.get(roleCode);
+        Optional<Role> role = roleService.get(code);
 
         if(role.isPresent()){
 
-            roleService.delete(roleCode);
+            roleService.delete(code);
 
             responseEntity = new ResponseEntity(true, HttpStatus.OK);
 
@@ -82,11 +83,11 @@ public class RoleController {
 
         ResponseEntity<Role> responseEntity = null;
 
-        Optional<Role> sysGroup = roleService.get(role.getCode());
+        Optional<Role> sysRole = roleService.get(role.getCode());
 
-        if(sysGroup.isPresent()){
+        if(sysRole.isPresent()){
 
-            role.setRoleId(sysGroup.get().getRoleId());
+            role.setRoleId(sysRole.get().getRoleId());
 
             Role updatedRole = roleService.save(role);
 
@@ -104,7 +105,7 @@ public class RoleController {
     @GetMapping()
     public ResponseEntity<List<Role>> getAll() {
 
-        return new ResponseEntity(roleService.getAllRoles(), HttpStatus.OK);
+        return new ResponseEntity(roleService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/find")
@@ -115,17 +116,54 @@ public class RoleController {
         return new ResponseEntity(roleService.find(querySpecification), HttpStatus.OK);
     }
 
-//    @GetMapping(value = "/search")
-//    public List<Role> find(@RequestBody List<SearchCriteria> criteriaList) {
-//        QuerySpecification<Role> querySpecification = new QuerySpecification<>(criteriaList);
-//        List<Role> authorities = roleService.findAll(querySpecification);
-//        return authorities;
-//    }
+    @GetMapping(value = "/{code}/deactivate")
+    public ResponseEntity<Role> deactivate(@PathVariable String code) {
 
-    @GetMapping(value = "/{roleID}/deactivate")
-    public Role deactivate(@PathVariable String roleID) {
-        return roleService.disableRole(roleID);
+        ResponseEntity<Role> responseEntity = null;
+
+        Optional<Role> sysRole = roleService.get(code);
+
+        if(sysRole.isPresent()){
+
+            Role role = sysRole.get();
+
+            role.setEnabled(false);
+
+            Role updatedRole = roleService.save(role);
+
+            responseEntity = new ResponseEntity(updatedRole, HttpStatus.OK);
+
+        }else{
+
+            responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
+        }
+
+        return responseEntity;
     }
 
+    @GetMapping(value = "/{code}/activate")
+    public ResponseEntity<Role> activate(@PathVariable String code) {
+
+        ResponseEntity<Role> responseEntity = null;
+
+        Optional<Role> sysRole = roleService.get(code);
+
+        if(sysRole.isPresent()){
+
+            Role role = sysRole.get();
+
+            role.setEnabled(true);
+
+            Role updatedRole = roleService.save(role);
+
+            responseEntity = new ResponseEntity(updatedRole, HttpStatus.OK);
+
+        }else{
+
+            responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
+        }
+
+        return responseEntity;
+    }
 
 }

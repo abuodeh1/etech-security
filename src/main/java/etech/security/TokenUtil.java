@@ -18,10 +18,10 @@ public class TokenUtil {
     private final String CLAIMS_SUBJECT = "sub";
     private final String CLAIMS_CREATED = "created";
 
-    @Value("${auth.expiration}")
+    @Value("${auth.expiration:604800}")
     private Long TOKEN_VALIDITY = 604800L;
 
-    @Value("${auth.secret}")
+    @Value("${auth.secret:mH6U7DlOO0}")
     private String SECRET_KEY = "mH6U7DlOO0";
 
     public String generateToken(UserDetails userDetails){
