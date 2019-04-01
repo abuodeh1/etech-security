@@ -21,7 +21,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public User add(@RequestBody User user) {
         try {
             return userService.save(user);
         } catch (Exception e) {
@@ -30,19 +30,19 @@ public class UserController {
         return null;
     }
 
-    @GetMapping(value = "/{userID}")
-    public ResponseEntity getUser(@PathVariable String userID) {
-        User user = userService.get(userID);
+    @GetMapping(value = "/{userId}")
+    public ResponseEntity get(@PathVariable String userId) {
+        User user = userService.get(userId);
         return (user == null? new ResponseEntity(HttpStatus.NO_CONTENT): ResponseEntity.accepted().body(user) );
     }
 
-    @DeleteMapping(value = "/{userID}")
-    public void deleteUser(@PathVariable String userID) {
-         userService.delete(userID);
+    @DeleteMapping(value = "/{userId}")
+    public void delete(@PathVariable String userId) {
+         userService.delete(userId);
     }
 
     @PutMapping
-    public User updateUser(@RequestBody User user) {
+    public User update(@RequestBody User user) {
 
         try {
             return userService.update(user);
@@ -53,22 +53,22 @@ public class UserController {
     }
 
     @GetMapping()
-    public List<User> getAllUsers() {
+    public List<User> getAll() {
         List userList = new ArrayList();
         userList= userService.getAllUsers();
         return userList;
     }
 
-    @GetMapping(value = "/search")
-    public List<User> findUser(@RequestBody List<SearchCriteria> criteriaList) {
+    @GetMapping(value = "/find")
+    public List<User> find(@RequestBody List<SearchCriteria> criteriaList) {
         QuerySpecification<User> querySpecification = new QuerySpecification(criteriaList);
         List<User> users = userService.findAll(querySpecification);
         return users;
     }
 
-    @GetMapping(value = "/{userID}/disable")
-    public User disableUser(@PathVariable String userID) {
-        return userService.disableUser(userID);
+    @GetMapping(value = "/{userId}/deactivate")
+    public User deactivate(@PathVariable String userId) {
+        return userService.disableUser(userId);
     }
 
 }

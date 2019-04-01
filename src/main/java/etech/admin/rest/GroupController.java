@@ -19,7 +19,7 @@ public class GroupController {
     GroupService groupService;
 
     @PostMapping
-    public Group createUser(@RequestBody Group group) {
+    public Group add(@RequestBody Group group) {
         try {
             return groupService.create(group);
         } catch (Exception e) {
@@ -29,17 +29,17 @@ public class GroupController {
     }
 
     @GetMapping(value = "/{groupID}")
-    public Group getGroup(@PathVariable String groupID) {
+    public Group get(@PathVariable String groupID) {
         return groupService.get(groupID);
     }
 
     @DeleteMapping(value = "/{groupID}")
-    public void deleteUser(@PathVariable String groupID) {
+    public void delete(@PathVariable String groupID) {
         groupService.delete(groupID);
     }
 
     @PutMapping
-    public Group updateUser(@RequestBody Group group) {
+    public Group update(@RequestBody Group group) {
         try {
             return groupService.update(group);
         } catch (Exception e) {
@@ -49,13 +49,13 @@ public class GroupController {
     }
 
     @GetMapping()
-    public List<Group> getAllGroups() {
+    public List<Group> getAll() {
         List groupList = new ArrayList();
         groupList= groupService.getAllGroup();
         return groupList;
     }
 
-    @GetMapping(value = "/search")
+    @GetMapping(value = "/find")
     public List<Group> findGroup(@RequestBody List<SearchCriteria> criteriaList) {
         QuerySpecification<Group> querySpecification = new QuerySpecification(criteriaList);
         List<Group> groups = groupService.findAll(querySpecification);

@@ -20,7 +20,7 @@ public class RoleController {
     private RoleService roleService;
 
     @PostMapping
-    public Role createRole(@RequestBody Role role) {
+    public Role add(@RequestBody Role role) {
         try {
             return roleService.create(role);
         } catch (Exception e) {
@@ -30,36 +30,36 @@ public class RoleController {
     }
 
     @GetMapping(value = "/{roleID}")
-    public Role getRole(@PathVariable String roleID) {
+    public Role get(@PathVariable String roleID) {
         return roleService.get(roleID);
     }
 
     @DeleteMapping (value = "/{roleID}")
-    public void deleteRole(@PathVariable String roleID) {
+    public void delete(@PathVariable String roleID) {
         roleService.delete(roleID);
     }
 
     @PutMapping
-    public Role updateRole(@RequestBody Role role) throws Exception {
+    public Role update(@RequestBody Role role) throws Exception {
         return roleService.update(role);
     }
 
     @GetMapping()
-    public List<Role> getAllroles() {
+    public List<Role> getAll() {
         List roleList = new ArrayList();
         roleList= roleService.getAllRoles();
         return roleList;
     }
 
     @GetMapping(value = "/search")
-    public List<Role> findRole(@RequestBody List<SearchCriteria> criteriaList) {
+    public List<Role> find(@RequestBody List<SearchCriteria> criteriaList) {
         QuerySpecification<Role> querySpecification = new QuerySpecification<>(criteriaList);
         List<Role> authorities = roleService.findAll(querySpecification);
         return authorities;
     }
 
-    @GetMapping(value = "/{roleID}/disable")
-    public Role disableRole(@PathVariable String roleID) {
+    @GetMapping(value = "/{roleID}/deactivate")
+    public Role deactivate(@PathVariable String roleID) {
         return roleService.disableRole(roleID);
     }
 

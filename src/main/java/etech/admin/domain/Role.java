@@ -20,9 +20,9 @@ public class Role {
     private String description;
     private boolean enabled;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    /*@OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "roleId")
-    private List<UserRole> userRoles;
+    private List<UserRole> userRoles;*/
 
     public Role() {
     }
@@ -67,11 +67,11 @@ public class Role {
         this.enabled = enabled;
     }
 
-    public List<UserRole> getUserRoles() {
+    /*public List<UserRole> getUserRoles() {
         return userRoles;
     }
 
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
-    }
+    }*/
 }

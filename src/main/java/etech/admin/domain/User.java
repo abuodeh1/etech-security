@@ -13,8 +13,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-//@Audited
-//@EntityListeners(AuditingEntityListener.class)
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 @Entity(name="USERS")
 public class User implements UserDetails {
 
@@ -25,6 +25,8 @@ public class User implements UserDetails {
     private String username;
 
     private String email;
+
+    private String code;
 
     private String name;
 
@@ -38,17 +40,17 @@ public class User implements UserDetails {
 
     private boolean enabled;
 
-    private String office;
+    /*private String office;
 
     private String branch;
 
     private String department;
 
-    private String directorate;
+    private String directorate;*/
 
-    @OneToMany(cascade = CascadeType.ALL)
+    /*@OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
-    private List<UserRole> userRoles;
+    private List<UserRole> userRoles;*/
 
     public User() {
     }
@@ -143,7 +145,7 @@ public class User implements UserDetails {
         this.enabled = enabled;
     }
 
-    public String getOffice() {
+    /*public String getOffice() {
         return office;
     }
 
@@ -173,21 +175,29 @@ public class User implements UserDetails {
 
     public void setDirectorate(String directorate) {
         this.directorate = directorate;
-    }
+    }*/
 
-    public List<UserRole> getUserRoles() {
+    /*public List<UserRole> getUserRoles() {
         return userRoles;
     }
 
     public void setUserRoles(List<UserRole> userRoles) {
         this.userRoles = userRoles;
     }
-
+*/
     public int getUserId() {
         return userId;
     }
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }
