@@ -28,6 +28,8 @@ public class UserController extends EntityController<User> {
 
             User user = sysUser.get();
 
+            user.setUserId(sysUser.get().getUserId());
+
             user.setEnabled(false);
 
             User updatedUser = baseService.save(user);
@@ -52,6 +54,8 @@ public class UserController extends EntityController<User> {
         if (sysUser.isPresent()) {
 
             User user = sysUser.get();
+
+            user.setUserId(sysUser.get().getUserId());
 
             user.setEnabled(true);
 

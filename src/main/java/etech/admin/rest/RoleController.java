@@ -28,6 +28,8 @@ public class RoleController extends EntityController<Role> {
 
             Role role = sysRole.get();
 
+            role.setRoleId(sysRole.get().getRoleId());
+
             role.setEnabled(false);
 
             Role updatedRole = roleService.save(role);
@@ -52,6 +54,8 @@ public class RoleController extends EntityController<Role> {
         if(sysRole.isPresent()){
 
             Role role = sysRole.get();
+
+            role.setRoleId(sysRole.get().getRoleId());
 
             role.setEnabled(true);
 
