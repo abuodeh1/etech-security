@@ -47,9 +47,29 @@ public class ApplicationInitializer implements CommandLineRunner {
 
             User user = new User("admin", "123", AuthorityUtils.NO_AUTHORITIES);
             user.setEmail("admin@etech-systems.com");
-            user.setName("Mohammad");
+            user.setName("Admin");
+
+            User user1 = new User("admin1", "123", AuthorityUtils.NO_AUTHORITIES);
+            user1.setEmail("admin1@etech-systems.com");
+            user1.setName("Admin 1");
+
+            User user2 = new User("admin2", "123", AuthorityUtils.NO_AUTHORITIES);
+            user2.setEmail("admin2@etech-systems.com");
+            user2.setName("Admin 2");
+
+            User user4 = new User("admin4", "123", AuthorityUtils.NO_AUTHORITIES);
+            user4.setEmail("admin1@etech-systems.com");
+            user4.setName("Admin 4");
+
+            User user3 = new User("admin3", "123", AuthorityUtils.NO_AUTHORITIES);
+            user3.setEmail("admin3@etech-systems.com");
+            user3.setName("Admin 3");
 
             userService.save(user);
+            userService.save(user1);
+            userService.save(user2);
+            userService.save(user3);
+            userService.save(user4);
 
             logger.info("NO USERS AVAILABLE / DEFAULT USER CREATED : ( " + user.getUsername() + " : " + user.getPassword() + " )");
         }
