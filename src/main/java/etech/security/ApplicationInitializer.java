@@ -1,7 +1,9 @@
 package etech.security;
 
+import etech.admin.domain.Lookup;
 import etech.admin.domain.Role;
 import etech.admin.domain.User;
+import etech.admin.services.LookupService;
 import etech.admin.services.RoleService;
 import etech.admin.services.UserService;
 import org.apache.juli.logging.Log;
@@ -24,6 +26,8 @@ public class ApplicationInitializer implements CommandLineRunner {
     private UserService userService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private LookupService lookupService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -70,6 +74,36 @@ public class ApplicationInitializer implements CommandLineRunner {
             userService.save(user2);
             userService.save(user3);
             userService.save(user4);
+
+            /*Lookup lookup = new Lookup();
+            lookup.setCode("0");
+            lookup.setName("Cities");
+
+            Lookup lookup1 = new Lookup();
+            lookup1.setCode("100");
+            lookup1.setName("Amman");
+            //lookup1.setParent(lookup);
+
+            Lookup lookup2 = new Lookup();
+            lookup2.setCode("101");
+            lookup2.setName("Aqaba");
+            //lookup2.setParent(lookup);
+
+            Lookup lookup3 = new Lookup();
+            lookup3.setCode("102");
+            lookup3.setName("Zarqa");
+            //lookup3.setParent(lookup);
+
+            Lookup lookup4 = new Lookup();
+            lookup4.setCode("103");
+            lookup4.setName("Irbid");
+            //lookup4.setParent(lookup);
+
+            lookupService.save(lookup);
+            lookupService.save(lookup1);
+            lookupService.save(lookup2);
+            lookupService.save(lookup3);
+            lookupService.save(lookup4);*/
 
             logger.info("NO USERS AVAILABLE / DEFAULT USER CREATED : ( " + user.getUsername() + " : " + user.getPassword() + " )");
         }

@@ -11,20 +11,18 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GroupService implements EntityService<Group>{
+public class GroupService implements EntityService<Group> {
 
     @Autowired
     private GroupRepository groupRepository;
 
-    public Group save(Group group)  {
+    public Group save(Group group) {
 
-
-            return groupRepository.save(group);
-
+        return groupRepository.save(group);
 
     }
 
-    public Optional<Group>  get(String groupCode) {
+    public Optional<Group> get(String groupCode) {
 
         Optional<Group> group = groupRepository.findGroupByCode(groupCode);
 

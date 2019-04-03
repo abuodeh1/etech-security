@@ -32,18 +32,18 @@ public abstract class EntityController<T extends DefaultEntity> {
     }
 
     @GetMapping(value = "/{code}")
-    public ResponseEntity get(@PathVariable String code) {
+    public ResponseEntity<T> get(@PathVariable String code) {
         ResponseEntity<T> responseEntity = null;
 
         Optional<T> user = baseService.get(code);
 
-        if(!user.isPresent()){
+        if(user.isPresent()){
 
-            responseEntity = new ResponseEntity(HttpStatus.NO_CONTENT);
+            responseEntity = new ResponseEntity(user.get(), HttpStatus.OK);
 
         }else{
 
-            responseEntity = new ResponseEntity(user.get(), HttpStatus.FOUND);
+            responseEntity = new ResponseEntity(HttpStatus.NO_CONTENT);
         }
 
         return responseEntity;
@@ -101,7 +101,7 @@ public abstract class EntityController<T extends DefaultEntity> {
         return new ResponseEntity(baseService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/find")
+    @PostMapping( value = "/find")
     public ResponseEntity<List<T>> find(@RequestBody List<SearchCriteria> criteriaList) {
 
         QuerySpecification<T> querySpecification = new QuerySpecification(criteriaList);

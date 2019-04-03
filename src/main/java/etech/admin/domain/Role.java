@@ -1,13 +1,13 @@
 package etech.admin.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-//@Audited
-//@EntityListeners(AuditingEntityListener.class)
+import javax.persistence.*;
+
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 @Entity(name="ROLES")
 public class Role extends DefaultEntity {
 
@@ -22,6 +22,10 @@ public class Role extends DefaultEntity {
     /*@OneToMany(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "roleId")
     private List<UserRole> userRoles;*/
+
+    /*@OneToMany(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "privilegeId")
+    private List<Privilege> privileges;*/
 
     public Role() {
     }
@@ -83,4 +87,12 @@ public class Role extends DefaultEntity {
     public void setId(int id) {
         this.roleId = id;
     }
+
+    /*public List<Privilege> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(List<Privilege> privileges) {
+        this.privileges = privileges;
+    }*/
 }

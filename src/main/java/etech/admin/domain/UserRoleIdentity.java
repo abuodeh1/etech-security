@@ -1,6 +1,9 @@
 package etech.admin.domain;
 
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -8,23 +11,36 @@ import java.io.Serializable;
 public class UserRoleIdentity implements Serializable {
 
     @NotNull
-    private int userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private User user;
+
     @NotNull
-    private int roleId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "roleId")
+    private Role role;
 
-    public int getUserId() {
-        return userId;
+    public UserRoleIdentity() {
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public UserRoleIdentity(@NotNull User user, @NotNull Role role) {
+        this.user = user;
+        this.role = role;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public User getUser() {
+        return user;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
