@@ -17,7 +17,7 @@ import java.util.Optional;
 public class UserService implements UserDetailsService, EntityService<User> {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

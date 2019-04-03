@@ -1,12 +1,14 @@
 package etech.admin.domain;
 
 
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
+import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 import java.util.Date;
 
-//@Audited
-//@EntityListeners(AuditingEntityListener.class)
+@Audited
+@EntityListeners(AuditingEntityListener.class)
 @Entity(name="USERROLES")
 public class UserRole {
 
@@ -35,4 +37,5 @@ public class UserRole {
     public void setUserRoleIdentity(UserRoleIdentity userRoleIdentity) {
         this.userRoleIdentity = userRoleIdentity;
     }
+
 }
