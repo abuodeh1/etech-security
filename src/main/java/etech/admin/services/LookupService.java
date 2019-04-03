@@ -132,6 +132,13 @@ public class LookupService implements EntityService<Lookup> {
         return  lookup;
     }
 
+    public List<Lookup> GetAllParentsLookupForAllList() {
+
+        List<Lookup> lookupList= lookupRepository.GetAllParentsLookupForAllList();
+
+        return  lookupList;
+    }
+
     public String getChildLookup(String lookupID) {
 
         Optional<Lookup> lookup= lookupRepository.findById(lookupID);
@@ -159,6 +166,8 @@ public class LookupService implements EntityService<Lookup> {
 
 
     }
+
+
 
 
 
