@@ -1,7 +1,6 @@
 package etech.admin.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,9 +12,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-@Audited
-@EntityListeners(AuditingEntityListener.class)
-@Entity(name="USERS")
+//@Audited
+//@EntityListeners(AuditingEntityListener.class)
+@Entity(name = "USERS")
 public class User extends DefaultEntity implements UserDetails {
 
     @Id
@@ -48,9 +47,18 @@ public class User extends DefaultEntity implements UserDetails {
 
     private String directorate;*/
 
-    /*@OneToMany(cascade = CascadeType.ALL)
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinColumns({
+//            @JoinColumn(name = "userId", referencedColumnName = "userId")
+//    })
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId")
-    private List<UserRole> userRoles;*/
+    private List<UserRole> userRoles;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private List<UserPrivileges> userPrivileges;
+
 
     public User() {
     }
@@ -72,9 +80,17 @@ public class User extends DefaultEntity implements UserDetails {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -97,10 +113,6 @@ public class User extends DefaultEntity implements UserDetails {
         return true;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -115,10 +127,6 @@ public class User extends DefaultEntity implements UserDetails {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public long getCreated() {
@@ -210,5 +218,21 @@ public class User extends DefaultEntity implements UserDetails {
     @Override
     public void setId(int id) {
         this.userId = id;
+    }
+
+    public List<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
+    public List<UserPrivileges> getUserPrivileges() {
+        return userPrivileges;
+    }
+
+    public void setUserPrivileges(List<UserPrivileges> userPrivileges) {
+        this.userPrivileges = userPrivileges;
     }
 }

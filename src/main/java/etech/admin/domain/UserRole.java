@@ -7,8 +7,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.util.Date;
 
-@Audited
-@EntityListeners(AuditingEntityListener.class)
+//@Audited
+//@EntityListeners(AuditingEntityListener.class)
 @Entity(name="USERROLES")
 public class UserRole {
 
@@ -37,5 +37,6 @@ public class UserRole {
     public void setUserRoleIdentity(UserRoleIdentity userRoleIdentity) {
         this.userRoleIdentity = userRoleIdentity;
     }
+
 
 }

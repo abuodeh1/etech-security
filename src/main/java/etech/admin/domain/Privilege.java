@@ -5,8 +5,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 
-@Audited
-@EntityListeners(AuditingEntityListener.class)
+//@Audited
+//@EntityListeners(AuditingEntityListener.class)
 @Entity(name="PRIVILEGES")
 public class Privilege extends DefaultEntity {
 
@@ -67,4 +67,5 @@ public class Privilege extends DefaultEntity {
     public void setPrivilegeId(int privilegeId) {
         this.privilegeId = privilegeId;
     }
+
 }

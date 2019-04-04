@@ -9,25 +9,24 @@ import java.util.Date;
 
 //@Audited
 //@EntityListeners(AuditingEntityListener.class)
-@Entity(name="GROUPROLES")
-public class GroupRole {
-
+@Entity(name="GROUPPRIVILEGES")
+public class GroupPrivileges {
 
     @EmbeddedId
-    private GroupRoleIdentity groupRoleIdentity;
+    private GroupPrivilegesIdentity groupPrivilegesIdentity;
 
     private long lastModified;
 
-    public GroupRole() {
+    public GroupPrivileges() {
         setLastModified(new Date().getTime());
     }
 
-    public GroupRoleIdentity getGroupRoleIdentity() {
-        return groupRoleIdentity;
+    public GroupPrivilegesIdentity getGroupPrivilegesIdentity() {
+        return groupPrivilegesIdentity;
     }
 
-    public void setGroupRoleIdentity(GroupRoleIdentity groupRoleIdentity) {
-        this.groupRoleIdentity = groupRoleIdentity;
+    public void setGroupPrivilegesIdentity(GroupPrivilegesIdentity groupPrivilegesIdentity) {
+        this.groupPrivilegesIdentity = groupPrivilegesIdentity;
     }
 
     public long getLastModified() {
@@ -37,4 +36,5 @@ public class GroupRole {
     public void setLastModified(long lastModified) {
         this.lastModified = lastModified;
     }
+
 }

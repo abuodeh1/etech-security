@@ -11,4 +11,5 @@ import java.util.Optional;
 @Repository
 public interface UserRoleRepository extends JpaRepository<UserRole, String> , JpaSpecificationExecutor<UserRole> {
 
+
 }

@@ -23,7 +23,7 @@ public abstract class EntityController<T extends DefaultEntity> {
 
         if(baseService.get(user.getCode()).isPresent()){
 
-            throw new ConflictException(String.format("The user %s already defined.", user.getCode()));
+            throw new ConflictException(String.format("The %s already defined.", user.getCode()));
         }
 
         DefaultEntity addedUser = baseService.save(user);

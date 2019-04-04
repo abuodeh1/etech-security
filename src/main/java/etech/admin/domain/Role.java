@@ -1,13 +1,11 @@
 package etech.admin.domain;
 
 
-import org.hibernate.envers.Audited;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
+import java.util.List;
 
-@Audited
-@EntityListeners(AuditingEntityListener.class)
+//@Audited
+//@EntityListeners(AuditingEntityListener.class)
 @Entity(name="ROLES")
 public class Role extends DefaultEntity {
 
@@ -19,13 +17,9 @@ public class Role extends DefaultEntity {
     private String description;
     private boolean enabled;
 
-    /*@OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "roleId")
-    private List<UserRole> userRoles;*/
-
-    /*@OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "privilegeId")
-    private List<Privilege> privileges;*/
+    private List<RolePrivilege> Privileges;
 
     public Role() {
     }
@@ -95,4 +89,12 @@ public class Role extends DefaultEntity {
     public void setPrivileges(List<Privilege> privileges) {
         this.privileges = privileges;
     }*/
+
+    public List<RolePrivilege> getPrivileges() {
+        return Privileges;
+    }
+
+    public void setPrivileges(List<RolePrivilege> privileges) {
+        this.Privileges = privileges;
+    }
 }

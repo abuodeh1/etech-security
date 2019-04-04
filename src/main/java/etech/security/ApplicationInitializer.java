@@ -1,8 +1,10 @@
 package etech.security;
 
+import etech.admin.domain.Group;
 import etech.admin.domain.Lookup;
 import etech.admin.domain.Role;
 import etech.admin.domain.User;
+import etech.admin.services.GroupService;
 import etech.admin.services.LookupService;
 import etech.admin.services.RoleService;
 import etech.admin.services.UserService;
@@ -29,6 +31,11 @@ public class ApplicationInitializer implements CommandLineRunner {
     @Autowired
     private LookupService lookupService;
 
+    @Autowired
+    private GroupService groupService;
+
+
+
     @Override
     public void run(String... args) throws Exception {
 
@@ -48,6 +55,16 @@ public class ApplicationInitializer implements CommandLineRunner {
 
             roleService.save(role);
             roleService.save(role1);
+
+            Group group =  new Group("1", "FirstGroub");
+            Group group1 = new Group("2", "SecondGroub");
+            Group group2 = new Group("3", "thirdGroub");
+
+            groupService.save(group);
+            groupService.save(group1);
+            groupService.save(group2);
+
+
 
             User user = new User("admin", "123", AuthorityUtils.NO_AUTHORITIES);
             user.setEmail("admin@etech-systems.com");

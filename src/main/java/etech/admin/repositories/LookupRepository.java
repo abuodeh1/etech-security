@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -26,4 +25,7 @@ public interface LookupRepository extends JpaRepository<Lookup, String>, JpaSpec
     @Transactional
     @Query
     public void attachChildLookup (String parent,String id);
+
+    @Query
+    public List<Lookup> GetAllParentsLookupForAllList();
 }

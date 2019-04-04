@@ -1,12 +1,10 @@
 package etech.admin.domain;
 
-import org.hibernate.envers.Audited;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
+import java.util.List;
 
-@Audited
-@EntityListeners(AuditingEntityListener.class)
+//@Audited
+//@EntityListeners(AuditingEntityListener.class)
 @Entity(name="GROUPS")
 public class Group extends DefaultEntity {
 
@@ -19,7 +17,22 @@ public class Group extends DefaultEntity {
     private String description;
     private boolean enabled;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "groupId")
+    private List<GroupRole> roles;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "groupId")
+    private List<GroupPrivileges> privileges;
+
+
+
     public Group() {
+    }
+
+    public Group(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 
     public String getCode() {
@@ -71,4 +84,23 @@ public class Group extends DefaultEntity {
     public void setId(int id) {
         this.groupId = id;
     }
+
+
+
+    public List<GroupRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<GroupRole> roles) {
+        this.roles = roles;
+    }
+
+    public List<GroupPrivileges> getPrivileges() {
+        return privileges;
+    }
+
+    public void setPrivileges(List<GroupPrivileges> privileges) {
+        this.privileges = privileges;
+    }
+
 }

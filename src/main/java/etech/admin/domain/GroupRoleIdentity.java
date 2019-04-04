@@ -1,24 +1,25 @@
 package etech.admin.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Embeddable
-public class UserRoleIdentity implements Serializable {
+public class GroupRoleIdentity implements Serializable {
 
-    @Column (name = "userId")
-    private int userId;
+
+    @Column(name = "groupId")
+    private int groupId;
     @Column(name = "roleId")
     private int roleId;
 
-    public int getUserId() {
-        return userId;
+
+    public int getGroupId() {
+        return groupId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
     }
 
     public int getRoleId() {
