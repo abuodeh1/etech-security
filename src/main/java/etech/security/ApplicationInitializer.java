@@ -1,9 +1,8 @@
 package etech.security;
 
-import etech.admin.domain.Group;
-import etech.admin.domain.Lookup;
-import etech.admin.domain.Role;
-import etech.admin.domain.User;
+import etech.admin.model.Group;
+import etech.admin.model.Role;
+import etech.admin.model.User;
 import etech.admin.services.GroupService;
 import etech.admin.services.LookupService;
 import etech.admin.services.RoleService;

@@ -3,13 +3,17 @@ package etech.exception;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 /**
@@ -17,6 +21,7 @@ import java.util.List;
  * @Created 18/09/2018 10:32 PM.
  */
 @ControllerAdvice
+@Validated
 public class ExceptionsHandler extends ResponseEntityExceptionHandler{
 
     @ExceptionHandler(BaseException.class)
@@ -39,4 +44,13 @@ public class ExceptionsHandler extends ResponseEntityExceptionHandler{
 
         return new ResponseEntity<>(validationError, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ConstraintViolationException .class)
+    @ResponseStatus (HttpStatus.BAD_REQUEST)
+    ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException e) {
+        return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+
+
 }
