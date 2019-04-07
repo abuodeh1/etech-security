@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public abstract class EntityControllerCRUD<T extends DefaultEntity, D extends DefaultDTO> {
+public abstract class EntityControllerCRUD<T extends DefaultEntity, D extends DefaultDTO> extends EntityControllerActivation<T, D > {
 
     @Autowired
     EntityService<T> baseService;
@@ -130,8 +130,6 @@ public abstract class EntityControllerCRUD<T extends DefaultEntity, D extends De
             BeanUtils.copyProperties(entity, dto, "password");
             dtos.add(dto);
         });
-
-
         return new ResponseEntity(dtos, HttpStatus.OK);
     }
 

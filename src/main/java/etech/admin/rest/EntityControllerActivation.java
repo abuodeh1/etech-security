@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Optional;
 
-public abstract class EntityControllerActivation<T extends DefaultEntity, D extends DefaultDTO> extends EntityControllerCRUD <T, D>{
+public abstract class EntityControllerActivation<T extends DefaultEntity, D extends DefaultDTO> {
 
     @Autowired
     EntityService<T> baseService;
@@ -37,7 +37,7 @@ public abstract class EntityControllerActivation<T extends DefaultEntity, D exte
 
             D userDTO = buildDTO();
 
-            BeanUtils.copyProperties(updatedUser, userDTO);
+            BeanUtils.copyProperties(updatedUser, userDTO,"password");
 
             responseEntity = new ResponseEntity(userDTO, HttpStatus.OK);
 
@@ -79,6 +79,7 @@ public abstract class EntityControllerActivation<T extends DefaultEntity, D exte
 
         return responseEntity;
     }
-
+    public abstract T buildEntity();
+    public abstract D buildDTO();
 
 }

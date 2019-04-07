@@ -19,7 +19,7 @@ public class LookupService implements EntityService<Lookup> {
 
     @Override
     public List<Lookup> getAll() {
-        return null;
+        return lookupRepository.findAll();
     }
 
     @Override
@@ -105,16 +105,15 @@ public class LookupService implements EntityService<Lookup> {
     }
 
 
-    public Lookup disableLookup(String lookupID) {
-
-        Optional<Lookup> lookup = lookupRepository.findById(lookupID);
-        lookup.get().setEnabled(false);
-
-        Lookup Lookup2 = lookupRepository.save(lookup.get());
-
-        return Lookup2;
-
-    }
+//    public Lookup disableLookup(String lookupID) {
+//
+//        Optional<Lookup> lookup = lookupRepository.findById(lookupID);
+//        lookup.get().setEnabled(false);
+//
+//        Lookup Lookup2 = lookupRepository.save(lookup.get());
+//
+//        return Lookup2;
+//    }
 
     public String getParentLookup(String lookupID) {
 
@@ -164,11 +163,6 @@ public class LookupService implements EntityService<Lookup> {
 
         lookupRepository.attachChildLookup(parentID,ID);
 
-
     }
-
-
-
-
 
 }

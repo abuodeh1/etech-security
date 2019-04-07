@@ -15,10 +15,10 @@ public class LookupController extends EntityControllerCRUD<Lookup, LookupDTO> {
     @Autowired
     LookupService lookupService;
 
-    @GetMapping(value = "/{roleID}/deactive")
-    public Lookup deactiveRole(@PathVariable String lookupID) {
-        return lookupService.disableLookup(lookupID);
-    }
+//    @GetMapping(value = "/{roleID}/deactive")
+//    public Lookup deactiveRole(@PathVariable String lookupID) {
+//        return lookupService.disableLookup(lookupID);
+//    }
 
     @GetMapping(value = "/lookupID/parent")
     public String getParentLookup(@PathVariable String lookupID) {

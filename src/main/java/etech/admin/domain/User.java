@@ -61,7 +61,7 @@ public class User extends DefaultEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return enabled;
     }
 
     public String getEmail() {

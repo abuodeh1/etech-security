@@ -55,13 +55,13 @@ public class ApplicationInitializer implements CommandLineRunner {
             roleService.save(role);
             roleService.save(role1);
 
-//            Group group =  new Group("1", "FirstGroub");
-//            Group group1 = new Group("2", "SecondGroub");
-//            Group group2 = new Group("3", "thirdGroub");
-//
-//            groupService.save(group);
-//            groupService.save(group1);
-//            groupService.save(group2);
+            Group group =  new Group("1", "FirstGroub");
+            Group group1 = new Group("2", "SecondGroub");
+            Group group2 = new Group("3", "thirdGroub");
+
+            groupService.save(group);
+            groupService.save(group1);
+            groupService.save(group2);
 
 
 

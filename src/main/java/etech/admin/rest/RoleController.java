@@ -18,59 +18,6 @@ public class RoleController extends EntityControllerCRUD<Role, RoleDTO> {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping(value = "/{code}/deactivate")
-    public ResponseEntity<Role> deactivate(@PathVariable String code) {
-
-        ResponseEntity<Role> responseEntity = null;
-
-        Optional<Role> sysRole = roleService.get(code);
-
-        if(sysRole.isPresent()){
-
-            Role role = sysRole.get();
-
-            role.setId(sysRole.get().getId());
-
-            role.setEnabled(false);
-
-            Role updatedRole = roleService.save(role);
-
-            responseEntity = new ResponseEntity(updatedRole, HttpStatus.OK);
-
-        }else{
-
-            responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
-        }
-
-        return responseEntity;
-    }
-
-    @GetMapping(value = "/{code}/activate")
-    public ResponseEntity<Role> activate(@PathVariable String code) {
-
-        ResponseEntity<Role> responseEntity = null;
-
-        Optional<Role> sysRole = roleService.get(code);
-
-        if(sysRole.isPresent()){
-
-            Role role = sysRole.get();
-
-            role.setId(sysRole.get().getId());
-
-            role.setEnabled(true);
-
-            Role updatedRole = roleService.save(role);
-
-            responseEntity = new ResponseEntity(updatedRole, HttpStatus.OK);
-
-        }else{
-
-            responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
-        }
-
-        return responseEntity;
-    }
 
     @Override
     public Role buildEntity() {
