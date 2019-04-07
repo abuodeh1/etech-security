@@ -17,45 +17,16 @@ import java.util.List;
 @Audited
 @EntityListeners(value = AuditingEntityListener.class)
 @Entity(name="Lookup")
-public class Lookup extends DefaultEntity{
+public class Lookup extends DefaultEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int lookupId;
-    private String code;
-    private String name;
+
     private String description;
-    private boolean enabled;
     private String parent;
     private boolean preferred;
     @Transient
     private List<Lookup> childList;
 
-    @Override
-    public String getCode() {
-        return code;
-    }
-    @Override
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    @Override
-    public int getId() {
-        return lookupId;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.lookupId = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public Lookup() {
     }
 
     public String getDescription() {
@@ -64,14 +35,6 @@ public class Lookup extends DefaultEntity{
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
     }
 
     public String getParent() {
@@ -88,14 +51,6 @@ public class Lookup extends DefaultEntity{
 
     public void setPreferred(boolean preferred) {
         this.preferred = preferred;
-    }
-
-    public int getLookupId() {
-        return lookupId;
-    }
-
-    public void setLookupId(int lookupId) {
-        this.lookupId = lookupId;
     }
 
     public List<Lookup> getChildList() {

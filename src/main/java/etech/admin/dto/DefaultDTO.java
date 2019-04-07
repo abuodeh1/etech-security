@@ -1,11 +1,8 @@
 package etech.admin.dto;
 
-public abstract class AbstractDTO {
+public abstract class DefaultDTO {
 
     private String code;
 
     public abstract String getCode();
-
-    public abstract void setCode(String code);
-
 }

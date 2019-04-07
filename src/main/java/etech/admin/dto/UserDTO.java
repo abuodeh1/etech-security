@@ -1,8 +1,10 @@
 package etech.admin.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
-public class UserDTO extends AbstractDTO{
+public class UserDTO extends DefaultDTO {
 
     private String username;
     private String email;
@@ -10,6 +12,10 @@ public class UserDTO extends AbstractDTO{
     private String password;
     private String mobile;
     private boolean enabled;
+
+    public UserDTO() {
+    }
+
     private List<Integer> roles;
     private List<Integer> privileges;
 
@@ -61,16 +67,6 @@ public class UserDTO extends AbstractDTO{
         this.enabled = enabled;
     }
 
-    @Override
-    public String getCode() {
-        return username;
-    }
-
-    @Override
-    public void setCode(String code) {
-        this.username = code;
-    }
-
     public List<Integer> getRoles() {
         return roles;
     }
@@ -85,5 +81,10 @@ public class UserDTO extends AbstractDTO{
 
     public void setPrivileges(List<Integer> privileges) {
         this.privileges = privileges;
+    }
+
+    @Override
+    public String getCode() {
+        return username;
     }
 }

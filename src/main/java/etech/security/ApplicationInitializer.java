@@ -1,8 +1,8 @@
 package etech.security;
 
-import etech.admin.model.Group;
-import etech.admin.model.Role;
-import etech.admin.model.User;
+import etech.admin.domain.Group;
+import etech.admin.domain.Role;
+import etech.admin.domain.User;
 import etech.admin.services.GroupService;
 import etech.admin.services.LookupService;
 import etech.admin.services.RoleService;
@@ -55,41 +55,43 @@ public class ApplicationInitializer implements CommandLineRunner {
             roleService.save(role);
             roleService.save(role1);
 
-            Group group =  new Group("1", "FirstGroub");
-            Group group1 = new Group("2", "SecondGroub");
-            Group group2 = new Group("3", "thirdGroub");
+//            Group group =  new Group("1", "FirstGroub");
+//            Group group1 = new Group("2", "SecondGroub");
+//            Group group2 = new Group("3", "thirdGroub");
+//
+//            groupService.save(group);
+//            groupService.save(group1);
+//            groupService.save(group2);
 
-            groupService.save(group);
-            groupService.save(group1);
-            groupService.save(group2);
 
 
-
-            User user = new User("admin", "123", AuthorityUtils.NO_AUTHORITIES);
+            User user = new User();
+            user.setCode("admin");
+            user.setPassword("123");
             user.setEmail("admin@etech-systems.com");
             user.setName("Admin");
-
-            User user1 = new User("admin1", "123", AuthorityUtils.NO_AUTHORITIES);
-            user1.setEmail("admin1@etech-systems.com");
-            user1.setName("Admin 1");
-
-            User user2 = new User("admin2", "123", AuthorityUtils.NO_AUTHORITIES);
-            user2.setEmail("admin2@etech-systems.com");
-            user2.setName("Admin 2");
-
-            User user4 = new User("admin4", "123", AuthorityUtils.NO_AUTHORITIES);
-            user4.setEmail("admin1@etech-systems.com");
-            user4.setName("Admin 4");
-
-            User user3 = new User("admin3", "123", AuthorityUtils.NO_AUTHORITIES);
-            user3.setEmail("admin3@etech-systems.com");
-            user3.setName("Admin 3");
+//
+//            User user1 = new User("admin1", "123", AuthorityUtils.NO_AUTHORITIES);
+//            user1.setEmail("admin1@etech-systems.com");
+//            user1.setName("Admin 1");
+//
+//            User user2 = new User("admin2", "123", AuthorityUtils.NO_AUTHORITIES);
+//            user2.setEmail("admin2@etech-systems.com");
+//            user2.setName("Admin 2");
+//
+//            User user4 = new User("admin4", "123", AuthorityUtils.NO_AUTHORITIES);
+//            user4.setEmail("admin1@etech-systems.com");
+//            user4.setName("Admin 4");
+//
+//            User user3 = new User("admin3", "123", AuthorityUtils.NO_AUTHORITIES);
+//            user3.setEmail("admin3@etech-systems.com");
+//            user3.setName("Admin 3");
 
             userService.save(user);
-            userService.save(user1);
-            userService.save(user2);
-            userService.save(user3);
-            userService.save(user4);
+//            userService.save(user1);
+//            userService.save(user2);
+//            userService.save(user3);
+//            userService.save(user4);
 
             /*Lookup lookup = new Lookup();
             lookup.setCode("0");

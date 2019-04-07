@@ -48,7 +48,7 @@ public class UserService implements UserDetailsService, EntityService<User> {
     @Override
     public Optional<User> get(String username) {
 
-        return userRepository.findUserByUsername(username);
+        return userRepository.findUserByCode(username);
     }
 
     public boolean delete(String username) {

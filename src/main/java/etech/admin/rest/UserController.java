@@ -4,6 +4,7 @@ import etech.admin.domain.Role;
 import etech.admin.domain.User;
 import etech.admin.domain.UserRole;
 import etech.admin.services.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,90 +17,21 @@ import java.util.Optional;
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/api/admin/user")
-public class UserController extends EntityController<User> {
+public class UserController extends EntityControllerCRUD<User, UserDTO> {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping(value = "/{username}/deactivate")
-    public ResponseEntity<User> deactivate(@PathVariable String username) {
 
-        ResponseEntity<User> responseEntity = null;
 
-        Optional<User> sysUser = userService.get(username);
-
-        if (sysUser.isPresent()) {
-
-            User user = sysUser.get();
-
-            user.setUserId(sysUser.get().getUserId());
-
-            user.setEnabled(false);
-
-            User updatedUser = userService.save(user);
-
-            responseEntity = new ResponseEntity(updatedUser, HttpStatus.OK);
-
-        } else {
-
-            responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
-        }
-
-        return responseEntity;
+    @Override
+    public User buildEntity() {
+        return new User();
     }
 
-    @GetMapping(value = "/{username}/activate")
-    public ResponseEntity<User> activate(@PathVariable String username) {
-
-        ResponseEntity<User> responseEntity = null;
-
-        Optional<User> sysUser = userService.get(username);
-
-        if (sysUser.isPresent()) {
-
-            User user = sysUser.get();
-
-            user.setUserId(sysUser.get().getUserId());
-
-            user.setEnabled(true);
-
-            User updatedUser = userService.save(user);
-
-            responseEntity = new ResponseEntity(updatedUser, HttpStatus.OK);
-
-        } else {
-
-            responseEntity = new ResponseEntity(HttpStatus.NOT_MODIFIED);
-        }
-
-        return responseEntity;
-    }
-
-
-    @GetMapping(value = "/{username}/roles")
-    public ResponseEntity<User> getUserRole(@PathVariable String username) {
-
-        ResponseEntity<User> responseEntity = null;
-
-        Optional<User> sysUser = baseService.get(username);
-
-        if (sysUser.isPresent()) {
-
-            User user = sysUser.get();
-
-            user.setUserId(sysUser.get().getUserId());
-
-            List<UserRole> userRole = new ArrayList<>();
-            userRole=user.getUserRoles();
-
-            responseEntity = new ResponseEntity(userRole, HttpStatus.OK);
-
-        } else {
-
-            responseEntity = new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-
-        return responseEntity;
+    @Override
+    public UserDTO buildDTO() {
+        return new UserDTO();
     }
 }
 

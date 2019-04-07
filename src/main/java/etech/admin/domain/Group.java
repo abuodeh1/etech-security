@@ -8,14 +8,9 @@ import java.util.List;
 @Entity(name="GROUPS")
 public class Group extends DefaultEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int groupId;
 
-    private String code;
-    private String name;
     private String description;
-    private boolean enabled;
+
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "groupId")
@@ -30,27 +25,6 @@ public class Group extends DefaultEntity {
     public Group() {
     }
 
-    public Group(String code, String name) {
-        this.code = code;
-        this.name = name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -58,34 +32,6 @@ public class Group extends DefaultEntity {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public int getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
-    }
-
-    @Override
-    public int getId() {
-        return groupId;
-    }
-
-    @Override
-    public void setId(int id) {
-        this.groupId = id;
-    }
-
-
 
     public List<GroupRole> getRoles() {
         return roles;
@@ -102,5 +48,4 @@ public class Group extends DefaultEntity {
     public void setPrivileges(List<GroupPrivileges> privileges) {
         this.privileges = privileges;
     }
-
 }

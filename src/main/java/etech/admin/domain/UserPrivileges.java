@@ -1,11 +1,7 @@
 package etech.admin.domain;
 
-import org.hibernate.envers.Audited;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import java.util.Date;
 
 //@Audited
