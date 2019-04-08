@@ -8,17 +8,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @NamedQueries({
-        @NamedQuery(name = "Lookup.GetAllParentsLookup", query = "select DISTINCT(c.parent) from Lookup c"),
-        @NamedQuery(name = "Lookup.GetAllParentsLookupForAllList", query = "select c from Lookup c where c.parent='0'"),
-        @NamedQuery(name = "Lookup.GetAllChildsLookup", query = "select c  from Lookup c where c.parent=?1"),
-        @NamedQuery(name = "Lookup.GetChildLookup", query = "select c.name  from Lookup c where c.parent=?1 and c.code=?2 "),
-        @NamedQuery(name = "Lookup.attachChildLookup", query = "update Lookup  set parent=?1 Where code=?2")
+        @NamedQuery(name = "Lookup.getAllParentsLookup", query = "select c from Lookup c where c.parent='0'"),
+        @NamedQuery(name = "Lookup.getParentLookup", query = "select c from Lookup c where c.code=?1 and c.parent='0'"),
+        @NamedQuery(name = "Lookup.getAllChildsLookup", query = "select c  from Lookup c where c.parent=?1"),
+        @NamedQuery(name = "Lookup.getChildLookup", query = "select c.name  from Lookup c where c.code=?1 and c.parent=?2 ")
 })
 @Audited
 @EntityListeners(value = AuditingEntityListener.class)
 @Entity(name="Lookup")
 public class Lookup extends DefaultEntity {
-
 
     private String description;
     private String parent;

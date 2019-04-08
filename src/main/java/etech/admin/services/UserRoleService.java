@@ -1,6 +1,5 @@
 package etech.admin.services;
 
-import etech.admin.domain.Role;
 import etech.admin.domain.UserRole;
 import etech.admin.repositories.UserRoleRepository;
 import etech.admin.rest.find.QuerySpecification;

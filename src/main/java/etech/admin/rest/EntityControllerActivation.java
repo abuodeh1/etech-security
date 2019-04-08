@@ -17,19 +17,18 @@ public abstract class EntityControllerActivation<T extends DefaultEntity, D exte
     @Autowired
     EntityService<T> baseService;
 
-    @GetMapping(value = "/{username}/deactivate")
-    public ResponseEntity<D> deactivate(@PathVariable String username) {
+    @GetMapping(value = "/{code}/deactivate")
+    public ResponseEntity<D> deactivate(@PathVariable String code) {
 
         ResponseEntity<D> responseEntity = null;
 
-        Optional<T> sysUser = baseService.get(username);
+        Optional<T> sysUser = baseService.get(code);
 
         if (sysUser.isPresent()) {
 
             T user = sysUser.get();
 
             user.setId(sysUser.get().getId());
-
 
             user.setEnabled(false);
 
@@ -49,14 +48,14 @@ public abstract class EntityControllerActivation<T extends DefaultEntity, D exte
         return responseEntity;
     }
 
-    @GetMapping(value = "/{username}/activate")
-    public ResponseEntity<D> activate(@PathVariable String username) {
+    @GetMapping(value = "/{code}/activate")
+    public ResponseEntity<D> activate(@PathVariable String code) {
 
         D userDTO = buildDTO();
 
         ResponseEntity<D> responseEntity = null;
 
-        Optional<T> sysUser = baseService.get(username);
+        Optional<T> sysUser = baseService.get(code);
 
         if (sysUser.isPresent()) {
 
@@ -79,6 +78,7 @@ public abstract class EntityControllerActivation<T extends DefaultEntity, D exte
 
         return responseEntity;
     }
+
     public abstract T buildEntity();
     public abstract D buildDTO();
 

@@ -1,6 +1,7 @@
 package etech.security;
 
 import etech.admin.domain.Group;
+import etech.admin.domain.Lookup;
 import etech.admin.domain.Role;
 import etech.admin.domain.User;
 import etech.admin.services.GroupService;
@@ -93,35 +94,35 @@ public class ApplicationInitializer implements CommandLineRunner {
 //            userService.save(user3);
 //            userService.save(user4);
 
-            /*Lookup lookup = new Lookup();
+            Lookup lookup = new Lookup();
             lookup.setCode("0");
-            lookup.setName("Cities");
+            lookup.setName("Root");
 
             Lookup lookup1 = new Lookup();
             lookup1.setCode("100");
-            lookup1.setName("Amman");
-            //lookup1.setParent(lookup);
+            lookup1.setName("UserStatus");
+            lookup1.setParent("0");
 
             Lookup lookup2 = new Lookup();
             lookup2.setCode("101");
-            lookup2.setName("Aqaba");
-            //lookup2.setParent(lookup);
+            lookup2.setName("Active");
+            lookup2.setParent("100");
 
             Lookup lookup3 = new Lookup();
             lookup3.setCode("102");
-            lookup3.setName("Zarqa");
-            //lookup3.setParent(lookup);
-
+            lookup3.setName("Idel");
+            lookup3.setParent("100");
+//
             Lookup lookup4 = new Lookup();
-            lookup4.setCode("103");
-            lookup4.setName("Irbid");
+            lookup4.setCode("5000");
+            lookup4.setName("randomLookup");
             //lookup4.setParent(lookup);
 
             lookupService.save(lookup);
             lookupService.save(lookup1);
             lookupService.save(lookup2);
             lookupService.save(lookup3);
-            lookupService.save(lookup4);*/
+            lookupService.save(lookup4);
 
             logger.info("NO USERS AVAILABLE / DEFAULT USER CREATED : ( " + user.getUsername() + " : " + user.getPassword() + " )");
         }

@@ -27,7 +27,7 @@ public class UserService implements UserDetailsService, EntityService<User> {
     @Override
     public User loadUserByUsername(String username)  {
 
-        Optional<User> user = userRepository.findById(username);
+        Optional<User> user = userRepository.findUserByCode(username);
 
         return user.isPresent()? user.get() : null;
     }
